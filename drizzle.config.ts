@@ -1,16 +1,19 @@
 import { defineConfig, type Config } from "drizzle-kit";
-import { loadEnvConfig } from "@next/env";
-
-const projectDir = process.cwd();
-loadEnvConfig(projectDir);
 
 const config = {
-  schema: "./src/db/schema/*",
+  schema: "src/db/schema.ts",
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL as string,
+    host: process.env.POSTGRES_HOST_EXTERNAL as string,
+    port: Number(process.env.POSTGRES_PORT_EXTERNAL) as number,
+    user: process.env.POSTGRES_USER as string,
+    password: process.env.POSTGRES_PASSWORD as string,
+    database: process.env.POSTGRES_DATABASE as string,
+    ssl: "prefer"
   },
+  verbose: true,
+  strict: true,
 } satisfies Config;
 
 export default defineConfig(config);

@@ -1,12 +1,82 @@
 {
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1711702761226,
-      "tag": "0000_robust_vector",
+      "version": "7",
+      "when": 1724966955945,
+      "tag": "0000_amazing_wild_pack",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1724970053633,
+      "tag": "0001_nebulous_wallop",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1724970340155,
+      "tag": "0002_lucky_rocket_raccoon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1724970382616,
+      "tag": "0003_open_mandroid",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1725053198613,
+      "tag": "0004_romantic_post",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1725053232365,
+      "tag": "0005_fantastic_thena",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1725835584599,
+      "tag": "0006_round_magma",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1725924340569,
+      "tag": "0007_harsh_quicksilver",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1725926431209,
+      "tag": "0008_flashy_ultragirl",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1725962288015,
+      "tag": "0009_melodic_hammerhead",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1725964233062,
+      "tag": "0010_simple_crystal",
       "breakpoints": true
     }
   ]

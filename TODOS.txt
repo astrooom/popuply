@@ -1,0 +1,5 @@
+- Add stripe (and max site limit).
+
+- Figure out where to host script js.
+
+- Adjust CSS for the popup small buttons(?)

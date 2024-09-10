@@ -11,6 +11,28 @@ const config = {
   ],
   prefix: "",
   theme: {
+    patterns: {
+      opacities: {
+        100: "1",
+        80: ".80",
+        60: ".60",
+        40: ".40",
+        20: ".20",
+        10: ".10",
+        5: ".05",
+      },
+      sizes: {
+        1: "0.25rem",
+        2: "0.5rem",
+        4: "1rem",
+        6: "1.5rem",
+        8: "2rem",
+        16: "4rem",
+        20: "5rem",
+        24: "6rem",
+        32: "8rem",
+      }
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -36,6 +58,10 @@ const config = {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        positive: {
+          DEFAULT: "hsl(var(--positive))",
+          foreground: "hsl(var(--positive-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -75,10 +101,13 @@ const config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
-      },
+      }
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require('tailwindcss-bg-patterns'),
+  ],
 } satisfies Config;
 
 export default config;

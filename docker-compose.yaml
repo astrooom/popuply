@@ -1,65 +1,35 @@
-version: "3.8"
-
-name: authstarter
-
 services:
-  # NextJS app
-  app:
-    image: node:20.11.1-alpine3.19
-    container_name: nextjs-app
-    ports:
-      - "3000:3000"
-    working_dir: /app
-    volumes:
-      - .:/app
-    env_file:
-      - path: ./.env
-        required: true
-      - path: ./.env.local
-        required: false
-    command: ["sh", "./dev.sh"]
-    depends_on:
-      - db
-    networks:
-      - authstarter-network
 
   # Postgres database
-  db:
-    container_name: postgres-db
-    image: postgres:13
+  postgres:
+    image: postgres:16.4-alpine
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: authstarter
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: authstarter
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /var/lib/postgresql/data
+      PGPORT: ${POSTGRES_PORT_INTERNAL:-5432}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT_EXTERNAL:-64431}:${POSTGRES_PORT_INTERNAL:-5432}"
     volumes:
-      - authstarter-db-data:/var/lib/postgresql/data
-    networks:
-      - authstarter-network
+      - postgres:/var/lib/postgresql/data
+    expose: [5432]
 
-  # PGAdmin for managing the database
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
+  dbgate:
+    image: dbgate/dbgate:alpine
+    restart: always
+    ports:
+      - 3100:3000
     environment:
-      PGADMIN_DEFAULT_EMAIL: user@example.com
-      PGADMIN_DEFAULT_PASSWORD: password
-      PGADMIN_CONFIG_SERVER_MODE: "False"
-      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
-      PGADMIN_LISTEN_PORT: 5050
-    volumes:
-      - ./pgadmin/servers.json:/pgadmin4/servers.json
-      - ./pgadmin/pgpass:/pgpass
-    ports:
-      - "5050:5050"
-    networks:
-      - authstarter-network
+      CONNECTIONS: postgres
 
+      ENGINE_postgres: postgres@dbgate-plugin-postgres
+      LABEL_postgres: postgres
+      SERVER_postgres: postgres
+      PORT_postgres: 5432
+      USER_postgres: ${POSTGRES_USER:-postgres}
+      PASSWORD_postgres: ${POSTGRES_PASSWORD}
+      DATABASE_postgres: ${POSTGRES_DATABASE:-postgres}
 
 volumes:
-  authstarter-db-data:
-
-networks:
-  authstarter-network:
-    driver: bridge
+  postgres:

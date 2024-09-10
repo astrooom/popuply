@@ -1,0 +1,1 @@
+ALTER TABLE "sites" ADD COLUMN "enable_webhook" boolean DEFAULT false NOT NULL;

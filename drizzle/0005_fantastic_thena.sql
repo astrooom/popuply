@@ -1,0 +1,1 @@
+ALTER TABLE "sites" ALTER COLUMN "favicon_url" DROP NOT NULL;
