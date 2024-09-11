@@ -10,7 +10,7 @@ export default async function SitePage({ params }: { params: { id: string } }) {
 
   // If not authorized, redirect to login
   if (!valid) {
-    redirect("/login");
+    return redirect("/login");
   }
 
   const siteId = params.id

@@ -1,4 +1,5 @@
 import "server-only";
+
 import { AuthenticationError } from "@/app/util";
 import { lucia, validateRequest } from "@/lib/auth";
 import { cache } from "react";
@@ -37,4 +38,12 @@ export async function setSession(userId: UserId) {
     sessionCookie.value,
     sessionCookie.attributes
   );
+}
+
+export async function logOut() {
+  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+  if (!sessionId) {
+    return;
+  }
+  await lucia.invalidateSession(sessionId);
 }

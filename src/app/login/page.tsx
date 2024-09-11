@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { LoginForm } from "./LoginForm";
-import { getCurrentUser, isCurrentUserValid } from "@/lib/auth/session";
+import { isCurrentUserValid } from "@/lib/auth/session";
 import { redirect } from "next/navigation";
 import { GithubLoginButton } from "./GithubLoginButton";
 import { serverLogger } from "@/lib/utils/server/logging";
@@ -12,7 +12,7 @@ export default async function Login() {
   // if user is already signed in and has verified email, redirect to dashboard
   if (valid) {
     serverLogger.info({ type: "AUTH", msg: "User already logged in. Redirecting to dashboard" });
-    redirect("/dashboard");
+    return redirect("/dashboard");
   }
 
   return (
@@ -26,7 +26,7 @@ export default async function Login() {
           Enter your email-address to get started.
         </p>
 
-        <LoginForm className="w-full gap-y-2 flex flex-col" />
+        <LoginForm className="w-full gap-y-2 flex flex-col" isVerified={valid} />
 
         <GithubLoginButton />
 

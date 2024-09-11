@@ -22,7 +22,7 @@ const FormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
 })
 
-export function LoginForm({ className }: { className?: string }) {
+export function LoginForm({ isVerified, className }: { isVerified: boolean, className?: string }) {
 
   const { push } = useRouter()
 
@@ -47,8 +47,11 @@ export function LoginForm({ className }: { className?: string }) {
     if (error) {
       toast.error(error)
     } else {
-      toast.success("Email sent! Redirecting to verification code...")
-      // Redirect to /login/code
+      if (isVerified) {
+        toast.success("Redirecting to dashboard...")
+      } else {
+        toast.success("Email sent! Redirecting to verification code...")
+      }
 
       push("/login/code")
     }
@@ -70,7 +73,7 @@ export function LoginForm({ className }: { className?: string }) {
             </FormItem>
           )}
         />
-        <Button type="submit">Log In</Button>
+        <Button variant="outline" type="submit">Log In</Button>
       </form>
     </Form>
   )

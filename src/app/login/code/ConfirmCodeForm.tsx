@@ -17,12 +17,16 @@ import {
 import { Input } from "@/components/ui/Input"
 
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 const FormSchema = z.object({
   code: z.string().min(1, { message: "Please enter a code" }),
 })
 
-export function ConfirmCodeForm({ className }: { className?: string }) {
+export function ConfirmCodeForm({ className, displayEmail }: { className?: string, displayEmail?: boolean }) {
+
+  const { push } = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -45,6 +49,7 @@ export function ConfirmCodeForm({ className }: { className?: string }) {
       toast.error(error)
     } else {
       toast.success("Email verified!")
+      push("/dashboard")
     }
   }
 
@@ -56,8 +61,8 @@ export function ConfirmCodeForm({ className }: { className?: string }) {
           name="code"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Verification Code</FormLabel>
-              <FormDescription>Please enter the verification code sent to your email</FormDescription>
+              <FormLabel>Verify Email</FormLabel>
+              <FormDescription>Please enter the verification code sent to {displayEmail || "your email"}</FormDescription>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -65,7 +70,7 @@ export function ConfirmCodeForm({ className }: { className?: string }) {
             </FormItem>
           )}
         />
-        <Button type="submit">Confirm</Button>
+        <Button variant="default" type="submit">Confirm</Button>
       </form>
     </Form>
   )

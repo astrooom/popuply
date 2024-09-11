@@ -64,9 +64,9 @@ export function DragDropPopups({ siteId, popups: initialPopups }: { siteId: Site
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="popups-list">
         {(provided) => (
-          <div {...provided.droppableProps} ref={provided.innerRef} className="flex flex-col gap-y-2 mx-auto lg:mr-8 ">
+          <div {...provided.droppableProps} ref={provided.innerRef} className={cn("flex flex-col gap-y-2 mx-auto", popups.length > 0 && "lg:mr-8")}>
             {popups.length === 0 ? (
-              <p className="text-muted-foreground">No popups configured for this site yet.</p>
+              <p className="ml-auto text-muted-foreground">No popups configured for this site yet.</p>
             ) : (
               popups.map((popup, index) => (
                 <Draggable key={popup.id} draggableId={popup.id} index={index}>

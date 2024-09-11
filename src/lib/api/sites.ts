@@ -1,22 +1,23 @@
 import "server-only";
 
-import { and, asc, db, eq, sql } from "@/db"
+import { and, asc, count as countSql, db, eq, sql } from "@/db"
 import { popups, Site, sites, webhookTokens } from "@/db/schema"
 import { assertAuthenticated } from "@/lib/auth/session";
 import { serverLogger } from "../utils/server/logging";
 import { v4 as uuidv4 } from 'uuid';
 import { unstable_cache } from "next/cache";
+import { domainSchema } from "../constants/validation";
+import { cache } from "react";
 
-export const getSites = async () => {
+export const getSites = cache(async () => {
   const user = await assertAuthenticated();
   if (!user) {
     throw new Error("User not found");
   }
-
   return await db.query.sites.findMany({
     where: and(eq(sites.userId, user.id), eq(sites.userId, user.id))
-  })
-}
+  });
+});
 
 export const getSite = async ({ siteId }: { siteId: string }) => {
   const user = await assertAuthenticated();
@@ -34,6 +35,19 @@ export const createSite = async ({ domain }: { domain: string }) => {
   if (!user) {
     throw new Error("User not found");
   }
+
+  // Count sites the user has
+  const [{ count }] = await db
+    .select({ count: countSql() })
+    .from(sites)
+    .where(eq(sites.userId, user.id));
+
+  if (count >= user.allowedSites) {
+    throw new Error("Maximum number of allowed sites reached");
+  }
+
+  // Validate domain using the Zod schema
+  domainSchema.parse(domain);
 
   const site = await db.insert(sites).values({
     domain,
@@ -74,19 +88,13 @@ export const deleteSite = async ({ siteId }: { siteId: string }) => {
 }
 
 // EXTERNAL: Get site settings + all of its popups. This is used for the external endpoint hit by users on the clients website so should not be user checked.
-export const externalGetSite = async ({ siteId }: { siteId: string }) => {
+export const externalGetSite = async ({ siteId, host }: { siteId: string, host?: string }) => {
   return await db.transaction(async (tx) => {
-    // Increment the visitors count
-    await tx.execute(sql`
-      UPDATE ${sites}
-      SET visitors = COALESCE(visitors, 0) + 1
-      WHERE id = ${siteId}
-    `);
-
-    // Fetch the updated site data
+    // Single query to check domain, update visitor count, and fetch site data
     const siteData = await tx.query.sites.findFirst({
       where: and(
         eq(sites.id, siteId),
+        // eq(sites.domain, host) allow all hosts through and instead log if there's a mismatch. Can work on a whitelisting system later if needed..
       ),
       with: {
         popups: {
@@ -103,6 +111,8 @@ export const externalGetSite = async ({ siteId }: { siteId: string }) => {
         }
       },
       columns: {
+        id: true,
+        domain: true,
         orderMode: true,
         startAfter: true,
         hideAfter: true,
@@ -110,9 +120,33 @@ export const externalGetSite = async ({ siteId }: { siteId: string }) => {
         enableWebhook: true,
         pageRuleType: true,
         pageRulePatterns: true,
-        visitors: true  // Include the visitors count in the response
+        visitors: true
       }
     });
+
+    // If no site is found or the domain doesn't match, return null
+    if (!siteData) {
+      return null;
+    }
+
+    // Log if there's a mismatch between the stored domain and the provided host
+    if (siteData.domain !== host) {
+      serverLogger.warn({
+        type: "API",
+        msg: "Host mismatch",
+        details: { siteId, storedDomain: siteData.domain, clientHostHeader: host }
+      });
+    }
+
+    // Update the visitors count
+    await tx.execute(sql`
+      UPDATE ${sites}
+      SET visitors = COALESCE(visitors, 0) + 1
+      WHERE id = ${siteId}
+    `);
+
+    // Update the visitors count in the siteData object
+    siteData.visitors = (siteData.visitors || 0) + 1;
 
     return siteData;
   });

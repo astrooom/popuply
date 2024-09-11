@@ -18,12 +18,31 @@ export const users = pgTable("users", {
   id: text("id").primaryKey(),
   email: varchar("email", { length: 320 }).unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
-  githubId: serial("github_id"), // Optional for GitHub oauth Users.
-  createdAt: timestamp('created_at').defaultNow().notNull()
+  githubId: integer("github_id"), // Optional for GitHub oauth Users.
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  allowedSites: integer("allowed_sites").default(0).notNull(),
 });
 export const userRelations = relations(users, ({ many }) => ({
   sites: many(sites)
 }));
+
+export const orderStatusEnum = pgEnum("order_status", ["created", "paid", "cancelled"]);
+export const orders = pgTable("orders", {
+  id: uuid("id").primaryKey(),
+  pricingId: text("pricing_id").notNull(),
+  sessionId: text("session_id"),
+  status: orderStatusEnum("status").notNull().default("created"),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  userId: text("user_id").references(() => users.id, { onDelete: 'set null' }) // Nullable foreign key
+})
+export const ordersRelations = relations(orders, ({ one }) => ({
+  user: one(users, {
+    fields: [orders.userId],
+    references: [users.id],
+  })
+}));
+
 
 
 export const emailVerificationCodes = pgTable("email_verification_code", {
@@ -121,7 +140,6 @@ export const popupRelations = relations(popups, ({ one }) => ({
     references: [sites.id],
   }),
 }))
-
 
 /**
  * TYPES

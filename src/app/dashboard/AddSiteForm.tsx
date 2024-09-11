@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/Button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,15 +17,7 @@ import {
 import { Input } from "@/components/ui/Input"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-
-const domainSchema = z
-  .string()
-  .min(1, { message: "Please enter a domain" })
-  .max(253)
-  .regex(
-    /^(?!:\/\/)(?!www\.)(?:[a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,63}$/,
-    'Invalid domain format. Please enter a valid domain (e.g., example.com).'
-  );
+import { domainSchema } from "@/lib/constants/validation"
 
 const FormSchema = z.object({
   domain: domainSchema,

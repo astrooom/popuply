@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { externalGetSite } from "@/lib/api/sites";
 import { rateLimitByIp } from "@/lib/ratelimit";
 import { getErrorMessage } from "@/lib/error";
+import { headers } from "next/headers";
 
 export const GET = async (request: NextRequest, { params }: { params: { id: string } }) => {
   try {
@@ -14,7 +15,14 @@ export const GET = async (request: NextRequest, { params }: { params: { id: stri
       throw new Error("Missing site id");
     }
 
-    return NextResponse.json({ data: await externalGetSite({ siteId: id }) }, { status: 200 });
+    const headersList = headers();
+    const host = headersList.get('x-forwarded-host') || headersList.get('host')
+
+    if (!host) {
+      throw new Error("Missing host");
+    }
+
+    return NextResponse.json({ data: await externalGetSite({ siteId: id, host }) }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: getErrorMessage(error) }, { status: 400 });
   }

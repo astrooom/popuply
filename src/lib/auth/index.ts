@@ -22,6 +22,7 @@ export const lucia = new Lucia(adapter, {
       id: attributes.id,
       email: attributes.email,
       emailVerified: attributes.emailVerified,
+      allowedSites: attributes.allowedSites,
     };
   },
 });
@@ -68,6 +69,7 @@ declare module "lucia" {
       id: UserId;
       email: string;
       emailVerified: Date | null;
+      allowedSites: number;
     };
   }
 }

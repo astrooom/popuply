@@ -3,7 +3,7 @@ import { Navbar } from "./Navbar"
 import { HomeFaq } from "./HomeFaq"
 import { LearnMore } from "./LearnMore"
 
-export default function Home() {
+export default function HomePage({ searchParams }: { searchParams: { loggedOut?: boolean } }) {
   // await getServerSession(authOptions);
 
   return (
@@ -18,8 +18,6 @@ export default function Home() {
           <h2 className="text-xl md:text-2xl font-bold">Frequently Asked Questions</h2>
           <HomeFaq />
         </div>
-
-        <script src="./scripts/popup-client.js" data-site-id="b80b7d4e-76a9-4267-a885-eaca07805eda" data-api-url="http://localhost:3456/api/external/sites" defer></script>
       </div>
     </>
   )

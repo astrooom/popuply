@@ -1,0 +1,23 @@
+{
+  "type": "checkout.session.completed",
+  "data": {
+    "object": {
+      "id": "cs_test_123456789",
+      "object": "checkout.session",
+      "payment_status": "paid",
+      "customer_details": {
+        "email": "test@example.com"
+      },
+      "line_items": {
+        "data": [
+          {
+            "price": {
+              "id": "price_1234567890"
+            },
+            "quantity": 1
+          }
+        ]
+      }
+    }
+  }
+}

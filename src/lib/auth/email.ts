@@ -17,7 +17,7 @@ export async function generateEmailVerificationCode(userId: string, email: strin
   });
 
   if (IS_DEVELOPMENT) {
-    serverLogger.error({ type: "AUTH", msg: "Generated verification code", details: { userId, email, code } });
+    serverLogger.info({ type: "AUTH", msg: "Generated verification code", details: { userId, email, code } });
   }
 
   return code;

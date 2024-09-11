@@ -1,8 +1,9 @@
 import { PricingCard } from "./PricingCard";
-import { HeroPopupButton } from "./HeroPopupButton";
 import { ArrowRight, Zap, Webhook, TrendingUp } from 'lucide-react';
 import { buttonVariants } from "@/components/ui/Button";
 import Link from "next/link";
+import { HeroPopupButtonContainer, HeroPopupButtonSkeleton } from "./HeroPopupButtonContainer";
+import { Suspense } from "react";
 export const Hero = () => {
   return (
     <div className="bg-gradient-to-br from-purple-50/20 to-pink-50/20 dark:from-gray-900/10 dark:to-purple-900/10 dark:border px-8 py-16 rounded-xl">
@@ -16,7 +17,11 @@ export const Hero = () => {
               Deliver configurable, impactful, and <strong>attention-grabbing</strong> pop-up notifications that drive engagement and boost conversions. 🚀
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center lg:justify-start">
-              <HeroPopupButton />
+
+              <Suspense fallback={<HeroPopupButtonSkeleton />}>
+                <HeroPopupButtonContainer />
+              </Suspense>
+
               <Link href="#learnMore" className={buttonVariants({ variant: "positive" })}>
                 Learn More <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
