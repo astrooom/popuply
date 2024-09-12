@@ -336,6 +336,9 @@
   const apiUrl = script.getAttribute('data-api-url') || 'https://popuply.net/api/external/sites';
   const cdnUrl = script.getAttribute('data-cdn-url') || 'https://popuply.b-cdn.net';
 
+  // Print apiUrl
+  console.log('Popuply: API URL:', apiUrl);
+
   if (siteId) {
     initializePopups(siteId, apiUrl, cdnUrl);
   } else {
