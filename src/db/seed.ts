@@ -8,14 +8,14 @@ async function seed() {
     const testUser = await db
       .insert(users)
       .values({
-        id: "test-user-id",
-        email: "test@example.com",
+        id: "showcase-user-id", // Consistent id!
+        email: "olle.ljung@gmail.com",
         emailVerified: new Date(),
         allowedSites: 1,
       })
       .onConflictDoUpdate({
         target: users.id,
-        set: { email: "test@example.com", emailVerified: new Date(), allowedSites: 1 },
+        set: { email: "olle.ljung@gmail.com", emailVerified: new Date(), allowedSites: 1 },
       })
       .returning()
       .then((res) => res[0])
@@ -26,6 +26,7 @@ async function seed() {
     const showcaseSite = await db
       .insert(sites)
       .values({
+        id: "eb4730df-8e36-474a-8034-15926a4eaf96", // Consistent uuid!
         userId: testUser.id,
         domain: "popuply.net",
         orderMode: "ordered",

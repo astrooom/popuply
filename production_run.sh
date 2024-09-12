@@ -1,5 +1,9 @@
 #!/bin/sh
 
+#Echoing directory contents
+echo "Directory contents:"
+find . -maxdepth 2 -type d
+
 echo "Running database migrations..."
 bun run db:migrate
 
@@ -8,4 +12,4 @@ bun run db:seed
 
 # Start the server
 echo "Starting the server..."
-exec node server.js
+exec bun run start

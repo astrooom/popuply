@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import type { NextFetchEvent, NextMiddleware, NextRequest } from "next/server"
 
 async function middlewareSettings(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  //const { pathname } = request.nextUrl
 
   // Clone the request headers
   const requestHeaders = new Headers(request.headers)
@@ -12,7 +12,7 @@ async function middlewareSettings(request: NextRequest) {
   requestHeaders.set("X-XSS-Protection", "1; mode=block")
 
   // Set a custom `X-Pathname` header that can be used to get the current path in server components...
-  requestHeaders.set("X-Pathname", pathname)
+  //requestHeaders.set("X-Pathname", pathname)
 
   // create new response - https://nextjs.org/docs/pages/building-your-application/routing/middleware#setting-headers
   const response = NextResponse.next({

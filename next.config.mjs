@@ -30,8 +30,6 @@ const nextConfig = {
     serverComponentsExternalPackages: ["pino", "pino-pretty"],
   },
 
-  output: 'standalone',
-
   async headers() {
     return [
       {

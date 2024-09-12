@@ -3,6 +3,8 @@ services:
   # --WEBSITE PROD CONTAINER--
   website:
     profiles: [ production ]
+    # ports:
+    #   - 3000:3000
     build:
       context: .
       dockerfile: ./Dockerfile
