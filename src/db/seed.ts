@@ -33,6 +33,7 @@ async function seed() {
         startAfter: 500,
         hideAfter: 1000,
         frequency: 1000,
+        enableWebhook: true,
         isShowcase: true,
       })
       .onConflictDoUpdate({
@@ -42,6 +43,7 @@ async function seed() {
           startAfter: 500,
           hideAfter: 1000,
           frequency: 1000,
+          enableWebhook: true,
           isShowcase: true,
         },
       })
