@@ -2,9 +2,12 @@ import Image from "next/image"
 import { ConfirmCodeForm } from "./ConfirmCodeForm"
 import { getCurrentUser } from "@/lib/auth/session"
 import { redirect } from "next/navigation"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert"
-import { CircleCheck } from "lucide-react"
-import { withQuery } from "ufo"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Popuply | Confirm Email",
+  description: "Verify your email address",
+}
 
 export default async function ConfirmCode({ searchParams }: { searchParams: { displayEmail?: boolean } }) {
   const user = await getCurrentUser()

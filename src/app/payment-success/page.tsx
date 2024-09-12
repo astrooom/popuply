@@ -2,6 +2,12 @@ import { CheckCircle } from "lucide-react"
 import { Navbar } from "../Navbar"
 import { GoToDashboardButton } from "./GoToDashboardButton"
 import { Suspense } from "react"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Popuply | Payment Successful",
+  description: "Payment suceeded",
+}
 
 export default function PaymentSuccessPage() {
   return (

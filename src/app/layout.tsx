@@ -1,13 +1,10 @@
 import type { Metadata } from "next"
-import { Short_Stack, Itim, Playpen_Sans, Chilanka } from "next/font/google"
-
+import { Short_Stack, Itim } from "next/font/google"
 import { cn } from "@/utils/cn"
-
 import "@/app/style.css"
+
 import { ThemeProvider } from "@/components/ThemeProvider"
-import Image from "next/image"
 import { Toaster } from "@/components/ui/Sonner"
-import { Navbar } from "./Navbar"
 import { Footer } from "./Footer"
 
 const shortStack = Short_Stack({
@@ -21,11 +18,6 @@ const ItimFont = Itim({
   variable: "--font-sans",
   weight: "400",
 })
-
-export const metadata: Metadata = {
-  title: "Next Auth Postgres Starter",
-  description: "An example of how to use NextJS with Auth.js and a PostgreSQL database",
-}
 
 export default function RootLayout({
   children,

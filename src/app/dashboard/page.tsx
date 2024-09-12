@@ -3,6 +3,13 @@ import { DashboardNavbar } from "./DashboardNavbar"
 import { Sites } from "./Sites"
 import { redirect } from "next/navigation"
 import { AddSiteCard } from "./AddSiteCard"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Popuply | Dashboard",
+  description: "Manage your sites",
+}
+
 export default async function DashboardPage() {
   const user = await getCurrentUser()
 

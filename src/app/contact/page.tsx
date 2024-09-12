@@ -1,6 +1,12 @@
 import React from "react"
 import { Navbar } from "../Navbar"
 import { Mail } from "lucide-react"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Popuply | Contact",
+  description: "Contact us for any questions or concerns",
+}
 
 export default function Page() {
   return (

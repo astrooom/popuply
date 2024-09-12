@@ -4,6 +4,13 @@ import { DragDropPopupsContainer } from "./DragDropPopupsContainer"
 import { SiteSettings } from "./SiteSettings"
 import { AccessContainer } from "./AccessContainer"
 import { SiteNavbar } from "./SiteNavbar"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Popuply | Site",
+  description: "Managing site",
+}
+
 export default async function SitePage({ params }: { params: { id: string } }) {
   const valid = await isCurrentUserValid()
 

@@ -2,6 +2,12 @@ import { ArrowLeft, LifeBuoy } from "lucide-react"
 import Link from "next/link"
 import { buttonVariants } from "@/components/ui/Button"
 import { Navbar } from "../Navbar"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Popuply | Payment Cancelled",
+  description: "Payment was cancelled",
+}
 
 export default function PaymentCancelledPage() {
   return (

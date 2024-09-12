@@ -4,6 +4,12 @@ import { isCurrentUserValid } from "@/lib/auth/session"
 import { redirect } from "next/navigation"
 import { GithubLoginButton } from "./GithubLoginButton"
 import { serverLogger } from "@/lib/utils/server/logging"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Popuply | Login",
+  description: "Log in to your account",
+}
 
 export default async function Login() {
   const valid = await isCurrentUserValid()

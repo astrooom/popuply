@@ -2,8 +2,14 @@ import { Hero } from "./Hero"
 import { Navbar } from "./Navbar"
 import { HomeFaq } from "./HomeFaq"
 import { LearnMore } from "./LearnMore"
+import type { Metadata } from "next"
 
 export const dynamic = "force-dynamic"
+
+export const metadata: Metadata = {
+  title: "Popuply",
+  description: "Turn visitors into loyal customers",
+}
 
 export default function HomePage() {
   return (

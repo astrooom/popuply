@@ -7,6 +7,12 @@ import { orders } from "@/db/schema"
 import { getCurrentUser } from "@/lib/auth/session"
 import { formatDistanceToNow } from "date-fns" // You might need to install this package
 import { PRODUCTS } from "@/lib/constants/checkout"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Popuply | Billing",
+  description: "Manage your billing",
+}
 
 export default async function OrdersPage() {
   const user = await getCurrentUser()
