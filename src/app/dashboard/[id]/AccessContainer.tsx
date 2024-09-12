@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import Link from "next/link"
 import { RegenerateWebhookTokenButton } from "./RegenerateWebhookTokenButton"
 import { getWebhookToken } from "@/lib/api/sites"
-import { HOST_NAME } from "@/lib/constants"
+import { HOST_URL } from "@/lib/constants"
 
 export async function AccessContainer({ siteId }: { siteId: string }) {
   const exampleWebhookJson = {
@@ -38,7 +38,7 @@ export async function AccessContainer({ siteId }: { siteId: string }) {
             Simply add this script tag to your websites to trigger popups.<br></br>Usually, it is recommended to add the tag to the Head tag
             of your website, but you can also add it to the body tag.
           </p>
-          <code className="p-2 bg-neutral-100 dark:bg-gray-900 rounded-lg block whitespace-pre overflow-x-auto text-sm">{`<script src="${HOST_NAME}/scripts/popuply-client.js" data-site-id="${siteId}" defer></script>`}</code>
+          <code className="p-2 bg-neutral-100 dark:bg-gray-900 rounded-lg block whitespace-pre overflow-x-auto text-sm">{`<script src="${HOST_URL}/scripts/popuply-client.js" data-site-id="${siteId}" defer></script>`}</code>
         </div>
         <div className="space-y-2" id="configureWebhooks">
           <h3 className="font-semibold text-lg">Webhook (Advanced)</h3>

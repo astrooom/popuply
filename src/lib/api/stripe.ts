@@ -1,7 +1,7 @@
 import "server-only"
 
 import Stripe from "stripe"
-import { HOST_NAME, IS_PRODUCTION } from "../constants"
+import { HOST_URL, IS_PRODUCTION } from "../constants"
 import { PRODUCTS } from "../constants/checkout"
 import { serverLogger } from "../utils/server/logging"
 import { v4 as uuidv4 } from "uuid"
@@ -39,8 +39,8 @@ export const createCheckoutSession = async ({ pricingId }: { pricingId: string }
       },
     ],
     mode: "payment",
-    success_url: `${HOST_NAME}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${HOST_NAME}/payment-cancelled`,
+    success_url: `${HOST_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${HOST_URL}/payment-cancelled`,
     client_reference_id: orderId,
   })
 

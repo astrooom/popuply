@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/utils/cn"
 import { toast } from "sonner"
-import { HOST_NAME, IS_DEVELOPMENT } from "@/lib/constants"
+import { HOST_URL, IS_DEVELOPMENT } from "@/lib/constants"
 
 export function HeroPopupButton({ siteId }: { siteId: string }) {
   const [isDarkMode, setIsDarkMode] = useState(false)
@@ -128,7 +128,7 @@ export function HeroPopupButton({ siteId }: { siteId: string }) {
       </Button>
 
       <script
-        src={`${HOST_NAME}/scripts/popuply-client.js`}
+        src={`${HOST_URL}/scripts/popuply-client.js`}
         data-site-id={siteId}
         data-api-url={IS_DEVELOPMENT ? "http://localhost:3456/api/external/sites" : undefined}
         defer

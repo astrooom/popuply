@@ -67,9 +67,3 @@ declare module "lucia" {
 export const github = new GitHub(process.env.GITHUB_CLIENT_ID!, process.env.GITHUB_CLIENT_SECRET!, {
   redirectURI: process.env.GITHUB_CALLBACK_URL,
 })
-
-// export const googleAuth = new Google(
-//   env.GOOGLE_CLIENT_ID,
-//   env.GOOGLE_CLIENT_SECRET,
-//   `${env.HOST_NAME}/api/login/google/callback`
-// );
