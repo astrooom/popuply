@@ -29,14 +29,12 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-# Copy over the build output
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/.next/standalone ./
-
-# Copy static assets and public folder to the standalone folder
-COPY --from=builder /app/.next/static ./standalone/.next/static
-COPY --from=builder /app/public ./standalone/public
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
 EXPOSE 3000
+
 CMD ["node", "server.js"]
