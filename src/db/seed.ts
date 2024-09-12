@@ -1,8 +1,8 @@
-import { db } from ".";
-import { users, sites } from "./schema";
+import { db } from "."
+import { users, sites } from "./schema"
 
 async function seed() {
-  console.log("Starting seed process...");
+  console.log("Starting seed process...")
   try {
     // Ensure test user exists
     const testUser = await db
@@ -18,9 +18,9 @@ async function seed() {
         set: { email: "test@example.com", emailVerified: new Date(), allowedSites: 1 },
       })
       .returning()
-      .then(res => res[0]);
+      .then((res) => res[0])
 
-    console.log("Test user ensured:", testUser);
+    console.log("Test user ensured:", testUser)
 
     // Ensure showcase site exists for the test user
     const showcaseSite = await db
@@ -45,17 +45,19 @@ async function seed() {
         },
       })
       .returning()
-      .then(res => res[0]);
+      .then((res) => res[0])
 
-    console.log("Showcase site ensured:", showcaseSite);
-    console.log("Seed process completed successfully.");
+    console.log("Showcase site ensured:", showcaseSite)
+    console.log("Seed process completed successfully.")
   } catch (error) {
-    console.error("Error during seed process:", error);
+    console.error("Error during seed process:", error)
   }
 }
 
-seed().then(() => {
-  console.log("Seeding complete.");
-}).catch(error => {
-  console.error("Seeding failed:", error);
-});
+seed()
+  .then(() => {
+    console.log("Seeding complete.")
+  })
+  .catch((error) => {
+    console.error("Seeding failed:", error)
+  })
