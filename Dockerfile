@@ -30,7 +30,9 @@ WORKDIR /app
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/migrate.ts /src/db/migrate.ts
+
+# Copy Drizzle database migration script
+COPY --from=builder /src/db/migrate.ts migrate.ts
 
 # Set environment variables
 ENV NODE_ENV production
@@ -40,4 +42,4 @@ ENV NEXT_TELEMETRY_DISABLED 1
 EXPOSE 3000
 
 # Run database migrations and then start the server
-CMD ["/bin/sh", "-c", "npx tsx ./src/db/migrate.ts && node server.js"]
+CMD ["/bin/sh", "-c", "npx tsx migrate.ts && node server.js"]
