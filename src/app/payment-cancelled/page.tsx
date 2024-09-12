@@ -1,7 +1,7 @@
-import { ArrowLeft, LifeBuoy } from 'lucide-react';
-import Link from 'next/link';
-import { buttonVariants } from "@/components/ui/Button";
-import { Navbar } from '../Navbar';
+import { ArrowLeft, LifeBuoy } from "lucide-react"
+import Link from "next/link"
+import { buttonVariants } from "@/components/ui/Button"
+import { Navbar } from "../Navbar"
 
 export default function PaymentCancelledPage() {
   return (
@@ -13,10 +13,12 @@ export default function PaymentCancelledPage() {
             <div className="container mx-auto px-4">
               <div className="flex flex-col items-center justify-center text-center space-y-8">
                 <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-                  Payment <span className="inline bg-gradient-to-r from-red-500 to-orange-500 text-transparent bg-clip-text">Cancelled</span>
+                  Payment{" "}
+                  <span className="inline bg-gradient-to-r from-red-500 to-orange-500 text-transparent bg-clip-text">Cancelled</span>
                 </h1>
                 <p className="text-xl text-foreground md:w-3/4 mx-auto">
-                  We&apos;re sorry, but your payment was cancelled. Don&apos;t worry, you haven&apos;t been charged. If you encountered any issues, please try again or contact our support team.
+                  We&apos;re sorry, but your payment was cancelled. Don&apos;t worry, you haven&apos;t been charged. If you encountered any
+                  issues, please try again or contact our support team.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/" className={buttonVariants({ variant: "default" })}>
@@ -32,6 +34,5 @@ export default function PaymentCancelledPage() {
         </div>
       </div>
     </>
-  );
-};
-
+  )
+}

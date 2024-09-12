@@ -1,17 +1,16 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/Button";
-import { ArrowRight } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { toast } from "sonner";
-import { withQuery } from "ufo";
+import { Button } from "@/components/ui/Button"
+import { ArrowRight } from "lucide-react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { toast } from "sonner"
+import { withQuery } from "ufo"
 
 export function GoToDashboardButton() {
+  const { push } = useRouter()
 
-  const { push } = useRouter();
-
-  const searchParams = useSearchParams();
-  const session_id = searchParams.get("session_id");
+  const searchParams = useSearchParams()
+  const session_id = searchParams.get("session_id")
 
   // Set session for this user and redirect to the verification code page.
   async function goToDashboard() {
@@ -23,21 +22,19 @@ export function GoToDashboardButton() {
       body: JSON.stringify({ sessionId: session_id }),
     })
 
-    const { error, email } = await response.json();
+    const { error, email } = await response.json()
 
     if (error) {
       toast.error(error)
     } else {
       // Redirect to email verification page. By now we have the user session set in the browser.
-      push(withQuery("/login/code", { displayEmail: email }));
+      push(withQuery("/login/code", { displayEmail: email }))
     }
   }
 
   return (
-    <Button
-      onClick={goToDashboard}
-    >
+    <Button onClick={goToDashboard}>
       Go to Dashboard <ArrowRight className="ml-2 h-5 w-5" />
     </Button>
-  );
+  )
 }

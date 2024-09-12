@@ -1,49 +1,45 @@
-import "server-only";
+import "server-only"
 
-import { AuthenticationError } from "@/app/util";
-import { lucia, validateRequest } from "@/lib/auth";
-import { cache } from "react";
-import { cookies } from "next/headers";
-import { UserId } from "lucia";
+import { AuthenticationError } from "@/app/util"
+import { lucia, validateRequest } from "@/lib/auth"
+import { cache } from "react"
+import { cookies } from "next/headers"
+import { UserId } from "lucia"
 
 export const getCurrentUser = cache(async () => {
-  const session = await validateRequest();
+  const session = await validateRequest()
   if (!session.user) {
-    return undefined;
+    return undefined
   }
-  return session.user;
-});
+  return session.user
+})
 
 export const isCurrentUserValid = async () => {
-  const user = await getCurrentUser();
+  const user = await getCurrentUser()
   if (!user) {
-    return false;
+    return false
   }
-  return !!user.emailVerified;
+  return !!user.emailVerified
 }
 
 export const assertAuthenticated = async () => {
-  const user = await getCurrentUser();
+  const user = await getCurrentUser()
   if (!user || !user.emailVerified) {
-    throw new AuthenticationError();
+    throw new AuthenticationError()
   }
-  return user;
-};
+  return user
+}
 
 export async function setSession(userId: UserId) {
-  const session = await lucia.createSession(userId, {});
-  const sessionCookie = lucia.createSessionCookie(session.id);
-  cookies().set(
-    sessionCookie.name,
-    sessionCookie.value,
-    sessionCookie.attributes
-  );
+  const session = await lucia.createSession(userId, {})
+  const sessionCookie = lucia.createSessionCookie(session.id)
+  cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 }
 
 export async function logOut() {
-  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null
   if (!sessionId) {
-    return;
+    return
   }
-  await lucia.invalidateSession(sessionId);
+  await lucia.invalidateSession(sessionId)
 }

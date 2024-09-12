@@ -1,14 +1,13 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/Button";
-import { NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY, PRODUCTS } from "@/lib/constants/checkout";
-import { cn } from "@/utils/cn";
-import { loadStripe } from '@stripe/stripe-js';
-import { toast } from "sonner";
+import { Button } from "@/components/ui/Button"
+import { NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY, PRODUCTS } from "@/lib/constants/checkout"
+import { cn } from "@/utils/cn"
+import { loadStripe } from "@stripe/stripe-js"
+import { toast } from "sonner"
 // import { useEffect, useState } from "react";
 
-export function PricingCardOrderButton({ plan }: { plan: typeof PRODUCTS[number] }) {
-
+export function PricingCardOrderButton({ plan }: { plan: (typeof PRODUCTS)[number] }) {
   // const [isDarkMode, setIsDarkMode] = useState(false);
 
   // useEffect(() => {
@@ -28,36 +27,33 @@ export function PricingCardOrderButton({ plan }: { plan: typeof PRODUCTS[number]
   // }, []);
 
   async function handleCheckout() {
-    const response = await fetch('/api/billing/stripe-checkout-session', {
-      method: 'POST',
+    const response = await fetch("/api/billing/stripe-checkout-session", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ pricingId: plan.pricingId }),
-    });
+    })
 
-    const { sessionId, error } = await response.json();
+    const { sessionId, error } = await response.json()
 
     if (error) {
-      toast.error(error);
+      toast.error(error)
     } else {
       // Redirect to Stripe Checkout
-      const stripePublishableKey = NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+      const stripePublishableKey = NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
       if (!stripePublishableKey) {
-        toast.error("Missing Stripe publishable key");
-        return;
+        toast.error("Missing Stripe publishable key")
+        return
       }
-      const stripe = await loadStripe(stripePublishableKey);
-      await stripe?.redirectToCheckout({ sessionId });
+      const stripe = await loadStripe(stripePublishableKey)
+      await stripe?.redirectToCheckout({ sessionId })
     }
   }
 
-
   return (
     <Button
-      className={cn(
-        "w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-700 transition duration-300",
-      )}
+      className={cn("w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-700 transition duration-300")}
       onClick={handleCheckout}
     >
       Order
@@ -65,6 +61,8 @@ export function PricingCardOrderButton({ plan }: { plan: typeof PRODUCTS[number]
   )
 }
 
-{/* <button className="w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-700 transition duration-300">
+{
+  /* <button className="w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-700 transition duration-300">
   Get Started Now
-</button> */}
+</button> */
+}

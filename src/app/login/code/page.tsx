@@ -1,24 +1,22 @@
-
-import Image from "next/image";
-import { ConfirmCodeForm } from "./ConfirmCodeForm";
-import { getCurrentUser } from "@/lib/auth/session";
-import { redirect } from "next/navigation";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
-import { CircleCheck } from "lucide-react";
-import { withQuery } from "ufo";
+import Image from "next/image"
+import { ConfirmCodeForm } from "./ConfirmCodeForm"
+import { getCurrentUser } from "@/lib/auth/session"
+import { redirect } from "next/navigation"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert"
+import { CircleCheck } from "lucide-react"
+import { withQuery } from "ufo"
 
 export default async function ConfirmCode({ searchParams }: { searchParams: { displayEmail?: boolean } }) {
-
-  const user = await getCurrentUser();
+  const user = await getCurrentUser()
 
   // If the user doesn't exist at all, redirect to the login page
   if (!user) {
-    return redirect("/login");
+    return redirect("/login")
   }
 
   // If the user is already verified, redirect to the dashboard with a success message (if one is provided)
   if (user.emailVerified) {
-    return redirect("/dashboard");
+    return redirect("/dashboard")
   }
 
   return (
@@ -30,4 +28,3 @@ export default async function ConfirmCode({ searchParams }: { searchParams: { di
     </div>
   )
 }
-

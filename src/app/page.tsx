@@ -3,10 +3,9 @@ import { Navbar } from "./Navbar"
 import { HomeFaq } from "./HomeFaq"
 import { LearnMore } from "./LearnMore"
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic"
 
 export default function HomePage() {
-
   return (
     <>
       <Navbar />

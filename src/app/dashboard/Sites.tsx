@@ -1,9 +1,9 @@
-import { getSites } from "@/lib/api/sites";
-import { Site, MobileSite } from "./Site";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/Table";
+import { getSites } from "@/lib/api/sites"
+import { Site, MobileSite } from "./Site"
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/Table"
 // Sites component
 export async function Sites() {
-  const sites = await getSites();
+  const sites = await getSites()
 
   return (
     <div>
@@ -40,5 +40,5 @@ export async function Sites() {
         </>
       )}
     </div>
-  );
+  )
 }

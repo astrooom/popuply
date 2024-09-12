@@ -1,9 +1,9 @@
-import { PricingCard } from "./PricingCard";
-import { ArrowRight, Zap, Webhook, TrendingUp } from 'lucide-react';
-import { buttonVariants } from "@/components/ui/Button";
-import Link from "next/link";
-import { HeroPopupButtonContainer, HeroPopupButtonSkeleton } from "./HeroPopupButtonContainer";
-import { Suspense } from "react";
+import { PricingCard } from "./PricingCard"
+import { ArrowRight, Zap, Webhook, TrendingUp } from "lucide-react"
+import { buttonVariants } from "@/components/ui/Button"
+import Link from "next/link"
+import { HeroPopupButtonContainer, HeroPopupButtonSkeleton } from "./HeroPopupButtonContainer"
+import { Suspense } from "react"
 export const Hero = () => {
   return (
     <div className="bg-gradient-to-br from-purple-50/20 to-pink-50/20 dark:from-gray-900/10 dark:to-purple-900/10 dark:border px-8 py-16 rounded-xl">
@@ -11,13 +11,14 @@ export const Hero = () => {
         <div className="flex lg:flex-row flex-col items-center justify-between gap-10">
           <section className="text-center lg:text-start space-y-8 lg:w-8/12">
             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-              Turn <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">visitors</span> into <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">loyal customers</span>
+              Turn <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">visitors</span> into{" "}
+              <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">loyal customers</span>
             </h1>
             <p className="text-xl text-foreground md:w-11/12 mx-auto lg:mx-0">
-              Deliver configurable, impactful, and <strong>attention-grabbing</strong> pop-up notifications that drive engagement and boost conversions. 🚀
+              Deliver configurable, impactful, and <strong>attention-grabbing</strong> pop-up notifications that drive engagement and boost
+              conversions. 🚀
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center lg:justify-start">
-
               <Suspense fallback={<HeroPopupButtonSkeleton />}>
                 <HeroPopupButtonContainer />
               </Suspense>
@@ -30,7 +31,7 @@ export const Hero = () => {
               {[
                 { icon: Zap, text: "Super fast setup" },
                 { icon: TrendingUp, text: "Increased engagement" },
-                { icon: Webhook, text: "Hook to events in real time" }
+                { icon: Webhook, text: "Hook to events in real time" },
               ].map((item, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <item.icon className="h-6 w-6 text-purple-500" />
@@ -48,5 +49,5 @@ export const Hero = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

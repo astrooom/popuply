@@ -2,76 +2,60 @@
  * In-memory rate limiter. Should be replaced with redis at some point.
  */
 
-import { getIp } from "./ip";
-import { RateLimitError } from "./error";
+import { getIp } from "./ip"
+import { RateLimitError } from "./error"
 
-const PRUNE_INTERVAL = 60 * 1000; // 1 minute
+const PRUNE_INTERVAL = 60 * 1000 // 1 minute
 
 const trackers: Record<
   string,
   {
-    count: number;
-    expiresAt: number;
+    count: number
+    expiresAt: number
   }
-> = {};
+> = {}
 
 function pruneTrackers() {
-  const now = Date.now();
+  const now = Date.now()
 
   for (const key in trackers) {
     if (trackers[key].expiresAt < now) {
-      delete trackers[key];
+      delete trackers[key]
     }
   }
 }
 
-setInterval(pruneTrackers, PRUNE_INTERVAL);
+setInterval(pruneTrackers, PRUNE_INTERVAL)
 
-export async function rateLimitByIp({
-  key = "global",
-  limit = 1,
-  window = 10000,
-}: {
-  key?: string;
-  limit?: number;
-  window?: number;
-}) {
-  const ip = getIp();
+export async function rateLimitByIp({ key = "global", limit = 1, window = 10000 }: { key?: string; limit?: number; window?: number }) {
+  const ip = getIp()
 
   if (!ip) {
-    throw new RateLimitError();
+    throw new RateLimitError()
   }
 
   await rateLimitByKey({
     key: `${ip}-${key}`,
     limit,
     window,
-  });
+  })
 }
 
-export async function rateLimitByKey({
-  key = "global",
-  limit = 1,
-  window = 10000,
-}: {
-  key?: string;
-  limit?: number;
-  window?: number;
-}) {
-  const tracker = trackers[key] || { count: 0, expiresAt: 0 };
+export async function rateLimitByKey({ key = "global", limit = 1, window = 10000 }: { key?: string; limit?: number; window?: number }) {
+  const tracker = trackers[key] || { count: 0, expiresAt: 0 }
 
   if (!trackers[key]) {
-    trackers[key] = tracker;
+    trackers[key] = tracker
   }
 
   if (tracker.expiresAt < Date.now()) {
-    tracker.count = 0;
-    tracker.expiresAt = Date.now() + window;
+    tracker.count = 0
+    tracker.expiresAt = Date.now() + window
   }
 
-  tracker.count++;
+  tracker.count++
 
   if (tracker.count > limit) {
-    throw new RateLimitError();
+    throw new RateLimitError()
   }
 }

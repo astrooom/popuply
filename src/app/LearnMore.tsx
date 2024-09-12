@@ -1,5 +1,5 @@
-import React from 'react';
-import { Bell, Zap, BarChart, Paintbrush, Lock, Layout, Webhook } from 'lucide-react';
+import React from "react"
+import { Bell, Zap, BarChart, Paintbrush, Lock, Layout, Webhook } from "lucide-react"
 
 const FeatureCard = ({ icon: Icon, title, description }: { icon: React.ElementType; title: string; description: string }) => (
   <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -7,41 +7,41 @@ const FeatureCard = ({ icon: Icon, title, description }: { icon: React.ElementTy
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
     <p className="text-gray-600 dark:text-gray-300">{description}</p>
   </div>
-);
+)
 
 export const LearnMore = () => {
   const features = [
     {
       icon: Bell,
       title: "Simple Notifications",
-      description: "Create basic popup notifications to engage your website visitors effectively."
+      description: "Create basic popup notifications to engage your website visitors effectively.",
     },
     {
       icon: Webhook,
       title: "Webhook Triggers",
-      description: "Trigger customized popups based on webhook events for dynamic, real-time user engagement."
+      description: "Trigger customized popups based on webhook events for dynamic, real-time user engagement.",
     },
     {
       icon: Zap,
       title: "Quick Setup",
-      description: "Get started in minutes with our super simple Popup builder. No coding skills required."
+      description: "Get started in minutes with our super simple Popup builder. No coding skills required.",
     },
     {
       icon: BarChart,
       title: "Basic Analytics",
-      description: "Track how many visitors see and interact with your popups using our simple analytics."
+      description: "Track how many visitors see and interact with your popups using our simple analytics.",
     },
     {
       icon: Paintbrush,
       title: "Easy Customization",
-      description: "Adjust colors, text, and basic layout to match your website's look and feel."
+      description: "Adjust colors, text, and basic layout to match your website's look and feel.",
     },
     {
       icon: Lock,
       title: "Privacy Friendly",
-      description: "Our popups respect user privacy and can be easily dismissed, adhering to best practices."
-    }
-  ];
+      description: "Our popups respect user privacy and can be easily dismissed, adhering to best practices.",
+    },
+  ]
 
   return (
     <section className="py-16" id="learnMore">
@@ -57,5 +57,5 @@ export const LearnMore = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}

@@ -1,26 +1,23 @@
 import { getCurrentUser } from "@/lib/auth/session"
-import { DashboardNavbar } from "./DashboardNavbar";
-import { Sites } from "./Sites";
-import { redirect } from "next/navigation";
-import { AddSiteCard } from "./AddSiteCard";
+import { DashboardNavbar } from "./DashboardNavbar"
+import { Sites } from "./Sites"
+import { redirect } from "next/navigation"
+import { AddSiteCard } from "./AddSiteCard"
 export default async function DashboardPage() {
-
-  const user = await getCurrentUser();
+  const user = await getCurrentUser()
 
   // If the user doesn't exist at all, redirect to the login page
   if (!user) {
-    return redirect("/login");
+    return redirect("/login")
   }
 
   // If the user exists but the email is not verified, redirect to the code verification page
-  const { emailVerified } = user;
+  const { emailVerified } = user
   if (!emailVerified) {
-    return redirect("/login/code");
+    return redirect("/login/code")
   }
 
-
   return (
-
     <>
       <DashboardNavbar />
       <div className="container">
@@ -32,7 +29,6 @@ export default async function DashboardPage() {
           <div className="lg:w-3/12">
             <AddSiteCard />
           </div>
-
         </div>
       </div>
     </>

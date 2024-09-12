@@ -5,15 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/Button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/Form"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form"
 import { Input } from "@/components/ui/Input"
 
 import { toast } from "sonner"
@@ -23,9 +15,8 @@ const FormSchema = z.object({
   code: z.string().min(1, { message: "Please enter a code" }),
 })
 
-export function ConfirmCodeForm({ className, displayEmail }: { className?: string, displayEmail?: boolean }) {
-
-  const { push } = useRouter();
+export function ConfirmCodeForm({ className, displayEmail }: { className?: string; displayEmail?: boolean }) {
+  const { push } = useRouter()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -70,7 +61,9 @@ export function ConfirmCodeForm({ className, displayEmail }: { className?: strin
             </FormItem>
           )}
         />
-        <Button variant="default" type="submit">Confirm</Button>
+        <Button variant="default" type="submit">
+          Confirm
+        </Button>
       </form>
     </Form>
   )

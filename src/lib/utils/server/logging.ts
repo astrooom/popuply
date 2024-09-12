@@ -1,31 +1,30 @@
-import "server-only";
+import "server-only"
 
-import pino from "pino";
-import pretty from "pino-pretty";
+import pino from "pino"
+import pretty from "pino-pretty"
 
 // import { runIfFn } from "@ultra/utils";
 
-import { IS_DEVELOPMENT, IS_PRODUCTION } from "@/lib/constants";
-
+import { IS_DEVELOPMENT, IS_PRODUCTION } from "@/lib/constants"
 
 const stream = pretty({
   colorize: !!IS_DEVELOPMENT,
   translateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'",
-});
+})
 
-export const serverLogger = pino({ level: IS_PRODUCTION ? "info" : "debug" }, stream);
+export const serverLogger = pino({ level: IS_PRODUCTION ? "info" : "debug" }, stream)
 
 // Define a type for your details object
 type LogDetails = {
-  component: string;
-  path: string;
-  function: string;
-  serializedError?: string;
-} & { [key: string]: unknown };
+  component: string
+  path: string
+  function: string
+  serializedError?: string
+} & { [key: string]: unknown }
 
 type WithLoggingOptions<T> = {
-  defaultReturnValue?: T | (() => T);
-};
+  defaultReturnValue?: T | (() => T)
+}
 
 // export const withLogging = async <T>(
 //   asyncFunction: AnyFunction<void, Promise<T>>,

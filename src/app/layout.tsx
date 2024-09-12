@@ -10,7 +10,6 @@ import { Toaster } from "@/components/ui/Sonner"
 import { Navbar } from "./Navbar"
 import { Footer } from "./Footer"
 
-
 const shortStack = Short_Stack({
   subsets: ["latin"],
   variable: "--font-sans",

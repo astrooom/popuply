@@ -5,14 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/Button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/Form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form"
 
 import { Input } from "@/components/ui/Input"
 import { toast } from "sonner"
@@ -22,8 +15,7 @@ const FormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
 })
 
-export function LoginForm({ isVerified, className }: { isVerified: boolean, className?: string }) {
-
+export function LoginForm({ isVerified, className }: { isVerified: boolean; className?: string }) {
   const { push } = useRouter()
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -73,7 +65,9 @@ export function LoginForm({ isVerified, className }: { isVerified: boolean, clas
             </FormItem>
           )}
         />
-        <Button variant="outline" type="submit">Log In</Button>
+        <Button variant="outline" type="submit">
+          Log In
+        </Button>
       </form>
     </Form>
   )

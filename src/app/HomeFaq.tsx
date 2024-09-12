@@ -1,30 +1,28 @@
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from '@/components/ui/Accordion'
-import { ChevronRight } from 'lucide-react';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/Accordion"
+import { ChevronRight } from "lucide-react"
 
 export function HomeFaq() {
   return (
-    <Accordion className='flex w-full flex-col'>
-      <AccordionItem value='getting-started'>
-        <AccordionTrigger className='w-full py-4 text-left text-foreground text-lg hover:text-zinc-500'>
-          Is it compatible with?... <ChevronRight className='ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90' />
+    <Accordion className="flex w-full flex-col">
+      <AccordionItem value="getting-started">
+        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500">
+          Is it compatible with?...{" "}
+          <ChevronRight className="ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
         </AccordionTrigger>
         <AccordionContent>
-          <p className='text-foreground'>
-            Popuply is compatible anywhere you can insert a code snippet (script tag). This includes Wordpress, Shopify, Wix, Bubble, Squarespace, Wagtail and more.
+          <p className="text-foreground">
+            Popuply is compatible anywhere you can insert a code snippet (script tag). This includes Wordpress, Shopify, Wix, Bubble,
+            Squarespace, Wagtail and more.
           </p>
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem value='animation-properties'>
-        <AccordionTrigger className='w-full py-4 text-left text-foreground text-lg hover:text-zinc-500'>
-          What can I customize? <ChevronRight className='ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90' />
+      <AccordionItem value="animation-properties">
+        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500">
+          What can I customize?{" "}
+          <ChevronRight className="ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
         </AccordionTrigger>
         <AccordionContent>
-          <p className='text-foreground'>
+          <p className="text-foreground">
             You can customize the following:
             <ul>
               <li>• The contents of the popups (duh)</li>
@@ -39,13 +37,17 @@ export function HomeFaq() {
           </p>
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem value='webhook'>
-        <AccordionTrigger className='w-full py-4 text-left text-foreground text-lg hover:text-zinc-500'>
-          Can I make popups trigger on events <ChevronRight className='ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90' />
+      <AccordionItem value="webhook">
+        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500">
+          Can I make popups trigger on events{" "}
+          <ChevronRight className="ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
         </AccordionTrigger>
         <AccordionContent>
-          <p className='text-foreground'>
-            Yes, you can. We provide you with a webhook to trigger popups with the contents of your choice. This works through sending a JSON payload to our API. The popup will then appear on your website for all current visitors in realtime.<br></br><br></br><strong>Some example use-cases could be:</strong>
+          <p className="text-foreground">
+            Yes, you can. We provide you with a webhook to trigger popups with the contents of your choice. This works through sending a
+            JSON payload to our API. The popup will then appear on your website for all current visitors in realtime.<br></br>
+            <br></br>
+            <strong>Some example use-cases could be:</strong>
             <ul>
               <li>• New orders </li>
               <li>• New sign-ups to a newsletter </li>
@@ -58,5 +60,5 @@ export function HomeFaq() {
         </AccordionContent>
       </AccordionItem>
     </Accordion>
-  );
+  )
 }

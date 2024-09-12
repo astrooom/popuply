@@ -1,5 +1,5 @@
-import { generateIdFromEntropySize } from "lucia";
+import { generateIdFromEntropySize } from "lucia"
 
 export function generateUserId() {
-  return generateIdFromEntropySize(10);
+  return generateIdFromEntropySize(10)
 }

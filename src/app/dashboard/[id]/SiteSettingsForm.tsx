@@ -4,17 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-
 import { Button } from "@/components/ui/Button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/Form"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form"
 
 import { Input } from "@/components/ui/Input"
 import { useRouter } from "next/navigation"
@@ -29,14 +20,13 @@ const FormSchema = z.object({
   startAfter: z.number().min(100).max(Number.MAX_SAFE_INTEGER),
   hideAfter: z.number().min(100).max(Number.MAX_SAFE_INTEGER),
   frequency: z.number().min(100).max(Number.MAX_SAFE_INTEGER),
-  orderMode: z.enum(['ordered', 'randomized']),
+  orderMode: z.enum(["ordered", "randomized"]),
   enableWebhook: z.boolean(),
   pageRuleType: z.enum(["whitelist", "blacklist"]),
   pageRulePatterns: z.array(z.string()),
 })
 
-export function SiteSettingsForm({ site, className }: { site: Site, className?: string }) {
-
+export function SiteSettingsForm({ site, className }: { site: Site; className?: string }) {
   const { refresh } = useRouter()
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -45,17 +35,16 @@ export function SiteSettingsForm({ site, className }: { site: Site, className?: 
       startAfter: site?.startAfter ?? 500,
       hideAfter: site?.hideAfter ?? 500,
       frequency: site?.frequency ?? 500,
-      orderMode: site?.orderMode ?? 'ordered',
+      orderMode: site?.orderMode ?? "ordered",
       enableWebhook: site?.enableWebhook ?? false,
-      pageRuleType: site?.pageRuleType ?? 'whitelist',
-      pageRulePatterns: site?.pageRulePatterns as string[] ?? [],
+      pageRuleType: site?.pageRuleType ?? "whitelist",
+      pageRulePatterns: (site?.pageRulePatterns as string[]) ?? [],
     },
   })
 
   const { clearErrors } = form
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-
     const response = await fetch(`/api/sites/${site.id}`, {
       method: "PATCH",
       headers: {
@@ -82,32 +71,33 @@ export function SiteSettingsForm({ site, className }: { site: Site, className?: 
         clearErrors()
       }
     }, 0)
-  };
+  }
 
   const handleAddPattern = () => {
-    const pattern = prompt("Enter a path:");
+    const pattern = prompt("Enter a path:")
     if (pattern) {
-      const currentPatterns = form.getValues("pageRulePatterns");
-      form.setValue("pageRulePatterns", [...currentPatterns, pattern]);
+      const currentPatterns = form.getValues("pageRulePatterns")
+      form.setValue("pageRulePatterns", [...currentPatterns, pattern])
     }
-  };
+  }
 
   const handleRemovePattern = (index: number) => {
-    const currentPatterns = form.getValues("pageRulePatterns");
-    form.setValue("pageRulePatterns", currentPatterns.filter((_, i) => i !== index));
-  };
-
+    const currentPatterns = form.getValues("pageRulePatterns")
+    form.setValue(
+      "pageRulePatterns",
+      currentPatterns.filter((_, i) => i !== index),
+    )
+  }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className={className} onBlur={handleFormBlur}>
-
         <FormField
           control={form.control}
           name="startAfter"
           render={({ field }) => (
             <FormItem>
-              <FormLabel >Start After</FormLabel>
+              <FormLabel>Start After</FormLabel>
               <FormDescription>The number of seconds after which the first popup will appear.</FormDescription>
               <FormControl>
                 <Input type="number" placeholder="500" {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
@@ -122,7 +112,7 @@ export function SiteSettingsForm({ site, className }: { site: Site, className?: 
           name="hideAfter"
           render={({ field }) => (
             <FormItem>
-              <FormLabel >Hide After</FormLabel>
+              <FormLabel>Hide After</FormLabel>
               <FormDescription>The number of seconds after which a visible popup will disappear.</FormDescription>
               <FormControl>
                 <Input type="number" placeholder="500" {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
@@ -137,7 +127,7 @@ export function SiteSettingsForm({ site, className }: { site: Site, className?: 
           name="frequency"
           render={({ field }) => (
             <FormItem>
-              <FormLabel >Frequency</FormLabel>
+              <FormLabel>Frequency</FormLabel>
               <FormDescription>The number of seconds between each popup.</FormDescription>
               <FormControl>
                 <Input type="number" placeholder="500" {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
@@ -157,21 +147,18 @@ export function SiteSettingsForm({ site, className }: { site: Site, className?: 
               <FormDescription>The order in which popups will appear.</FormDescription>
 
               <Select defaultValue={field.value} onValueChange={field.onChange}>
-
                 <FormControl>
                   {/* <Input placeholder="500" {...field} /> */}
 
                   <SelectTrigger>
                     <SelectValue placeholder="Select order" />
                   </SelectTrigger>
-
                 </FormControl>
 
                 <SelectContent>
                   <SelectItem value="ordered">Ordered</SelectItem>
                   <SelectItem value="randomized">Randomized</SelectItem>
                 </SelectContent>
-
               </Select>
 
               <FormMessage />
@@ -186,7 +173,6 @@ export function SiteSettingsForm({ site, className }: { site: Site, className?: 
             <FormItem
               id="enableWebhook" // Used for local href
             >
-
               <div className="flex gap-x-2">
                 <FormLabel>Enable Webhooks</FormLabel>
 
@@ -194,7 +180,13 @@ export function SiteSettingsForm({ site, className }: { site: Site, className?: 
                   <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                 </FormControl>
               </div>
-              <FormDescription>Allow triggering realtime popups through <Link href="#configureWebhooks" className="underline text-blue-500">webhooks</Link> for this site.</FormDescription>
+              <FormDescription>
+                Allow triggering realtime popups through{" "}
+                <Link href="#configureWebhooks" className="underline text-blue-500">
+                  webhooks
+                </Link>{" "}
+                for this site.
+              </FormDescription>
 
               <FormMessage />
             </FormItem>
@@ -230,13 +222,17 @@ export function SiteSettingsForm({ site, className }: { site: Site, className?: 
           render={({ field }) => (
             <FormItem>
               <FormLabel>Page Rule Patterns</FormLabel>
-              <FormDescription>The patterns that will skip triggering the popup.<br></br>For example, a pattern of <span className="font-semibold">/login</span> will skip triggering the popup on all paths starting with <span className="font-semibold">/login</span> including all subpaths. Vice versa if whitelist is selected.</FormDescription>
+              <FormDescription>
+                The patterns that will skip triggering the popup.<br></br>For example, a pattern of{" "}
+                <span className="font-semibold">/login</span> will skip triggering the popup on all paths starting with{" "}
+                <span className="font-semibold">/login</span> including all subpaths. Vice versa if whitelist is selected.
+              </FormDescription>
               <FormControl>
                 <div>
                   {field.value.map((pattern, index) => (
                     <div key={index} className="flex items-center mb-2">
                       <Input value={pattern} readOnly className="mr-2" />
-                      <Button type="button" variant="ghost" size="sm" onClick={() => handleRemovePattern(index)} >
+                      <Button type="button" variant="ghost" size="sm" onClick={() => handleRemovePattern(index)}>
                         <XIcon className="w-4 h-4" />
                       </Button>
                     </div>
@@ -254,8 +250,7 @@ export function SiteSettingsForm({ site, className }: { site: Site, className?: 
         <Button variant="default" size="sm" type="submit">
           Save
         </Button>
-
       </form>
-    </Form >
+    </Form>
   )
 }

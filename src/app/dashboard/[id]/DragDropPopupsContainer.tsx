@@ -1,12 +1,10 @@
-import type { Site } from "@/db/schema";
-import { getPopups } from "@/lib/api/popups";
+import type { Site } from "@/db/schema"
+import { getPopups } from "@/lib/api/popups"
 
-import { DragDropPopups } from "./DragDropPopups";
-import { AddPopupButton } from "./AddPopupButton";
-
+import { DragDropPopups } from "./DragDropPopups"
+import { AddPopupButton } from "./AddPopupButton"
 
 export async function DragDropPopupsContainer({ siteId }: { siteId: Site["id"] }) {
-
   const popups = await getPopups({ siteId })
 
   return (

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Navbar } from "../Navbar";
-import { Mail } from 'lucide-react';
+import React from "react"
+import { Navbar } from "../Navbar"
+import { Mail } from "lucide-react"
 
 export default function Page() {
   return (
@@ -12,13 +12,15 @@ export default function Page() {
           <p className="text-xl mb-8">We&apos;re here to help! Get in touch with us for any questions or concerns.</p>
 
           <div className="grid md:grid-cols-1 gap-8 mb-12">
-
             <div className="flex flex-col items-center">
               <Mail className="w-12 h-12 text-blue-500 mb-4" />
               <h2 className="text-2xl font-semibold mb-2">Email</h2>
-              <p className="text-xl"><a href="mailto:contact@buddleja.co" className="text-blue-500 hover:underline">contact@buddleja.co</a></p>
+              <p className="text-xl">
+                <a href="mailto:contact@buddleja.co" className="text-blue-500 hover:underline">
+                  contact@buddleja.co
+                </a>
+              </p>
             </div>
-
           </div>
 
           <div className="p-8 rounded-lg">

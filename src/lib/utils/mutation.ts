@@ -1,7 +1,7 @@
-import { PlainObject } from "./type";
+import { PlainObject } from "./type"
 
 export function objectKeys<T extends object>(obj: T) {
-  return Object.keys(obj) as Array<keyof T>;
+  return Object.keys(obj) as Array<keyof T>
 }
 
 /**
@@ -19,7 +19,7 @@ export function objectKeys<T extends object>(obj: T) {
  *    isPlainObject(new Date()) //=> false
  */
 export function isPlainObject<T>(v: T | object): v is PlainObject {
-  return v?.constructor === Object;
+  return v?.constructor === Object
 }
 
 /**
@@ -30,5 +30,5 @@ export function isPlainObject<T>(v: T | object): v is PlainObject {
  * @returns {value is T[]} - True if the value is an array, false otherwise
  */
 export function isArray<T>(value: unknown): value is T[] {
-  return Array.isArray(value);
+  return Array.isArray(value)
 }

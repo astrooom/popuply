@@ -1,13 +1,12 @@
 "use client"
 
-import { Popup as PopupType } from "@/db/schema";
-import { TrashIcon } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Popup as PopupType } from "@/db/schema"
+import { TrashIcon } from "lucide-react"
+import { Button } from "@/components/ui/Button"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
-export function DeletePopupButton({ siteId, popup }: { siteId: string, popup: PopupType }) {
-
+export function DeletePopupButton({ siteId, popup }: { siteId: string; popup: PopupType }) {
   const { refresh } = useRouter()
 
   async function deletePopup() {
@@ -25,14 +24,8 @@ export function DeletePopupButton({ siteId, popup }: { siteId: string, popup: Po
     }
   }
 
-
   return (
-    <Button
-      variant="ghost"
-      className="hover:bg-muted-foreground/20"
-      size="sm"
-      onClick={async () => await deletePopup()}
-    >
+    <Button variant="ghost" className="hover:bg-muted-foreground/20" size="sm" onClick={async () => await deletePopup()}>
       <TrashIcon className="w-[15px] h-[15px] text-red-500" />
     </Button>
   )

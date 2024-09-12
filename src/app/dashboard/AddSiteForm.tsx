@@ -5,14 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/Button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/Form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form"
 
 import { Input } from "@/components/ui/Input"
 import { toast } from "sonner"
@@ -24,7 +17,6 @@ const FormSchema = z.object({
 })
 
 export function AddSiteForm({ className }: { className?: string }) {
-
   const { refresh } = useRouter()
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -82,7 +74,9 @@ export function AddSiteForm({ className }: { className?: string }) {
             </FormItem>
           )}
         />
-        <Button variant="secondary" type="submit">Add</Button>
+        <Button variant="secondary" type="submit">
+          Add
+        </Button>
       </form>
     </Form>
   )

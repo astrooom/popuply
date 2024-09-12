@@ -27,6 +27,9 @@ export function AddPopupButton({ siteId, ...props }: { siteId: string } & React.
   }
 
   return (
-    <Button {...props} onClick={() => addPopup()}> <PlusIcon className="w-3 h-3 mr-2" /> Add Popup</Button >
+    <Button {...props} onClick={() => addPopup()}>
+      {" "}
+      <PlusIcon className="w-3 h-3 mr-2" /> Add Popup
+    </Button>
   )
 }

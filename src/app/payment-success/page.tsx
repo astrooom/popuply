@@ -1,7 +1,7 @@
-import { CheckCircle } from 'lucide-react';
-import { Navbar } from '../Navbar';
-import { GoToDashboardButton } from './GoToDashboardButton';
-import { Suspense } from 'react';
+import { CheckCircle } from "lucide-react"
+import { Navbar } from "../Navbar"
+import { GoToDashboardButton } from "./GoToDashboardButton"
+import { Suspense } from "react"
 
 export default function PaymentSuccessPage() {
   return (
@@ -14,10 +14,12 @@ export default function PaymentSuccessPage() {
               <div className="flex flex-col items-center justify-center text-center space-y-8">
                 <CheckCircle className="w-16 h-16 text-green-500" />
                 <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-                  Payment <span className="inline bg-gradient-to-r from-green-500 to-blue-500 text-transparent bg-clip-text">Successful</span>
+                  Payment{" "}
+                  <span className="inline bg-gradient-to-r from-green-500 to-blue-500 text-transparent bg-clip-text">Successful</span>
                 </h1>
                 <p className="text-xl text-foreground md:w-3/4 mx-auto">
-                  Great news! Your payment has been processed successfully. Thank you for your purchase. We&apos;re excited to have you on board!
+                  Great news! Your payment has been processed successfully. Thank you for your purchase. We&apos;re excited to have you on
+                  board!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Suspense>
@@ -30,5 +32,5 @@ export default function PaymentSuccessPage() {
         </div>
       </div>
     </>
-  );
+  )
 }

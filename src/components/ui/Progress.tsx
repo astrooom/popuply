@@ -1,19 +1,8 @@
 export default function RadialProgress({ progress }: { progress: number }) {
   return (
-    <div
-      x-data="scrollProgress"
-      className="  inline-flex items-center justify-center overflow-hidden rounded-full "
-    >
+    <div x-data="scrollProgress" className="  inline-flex items-center justify-center overflow-hidden rounded-full ">
       <svg className=" w-20 h-20">
-        <circle
-          className="text-gray-300"
-          strokeWidth={"4"}
-          stroke="currentColor"
-          fill="transparent"
-          r="30"
-          cx="40"
-          cy="40"
-        />
+        <circle className="text-gray-300" strokeWidth={"4"} stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
         <circle
           className="text-black"
           strokeWidth="4"
@@ -31,5 +20,5 @@ export default function RadialProgress({ progress }: { progress: number }) {
         {progress}%
       </span>
     </div>
-  );
+  )
 }

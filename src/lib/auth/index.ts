@@ -1,14 +1,14 @@
-import { GitHub, Google } from "arctic";
-import { Lucia } from "lucia";
-import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
-import { db } from "@/db";
-import { sessions, users } from "@/db/schema";
-import { cookies } from "next/headers";
-import { User } from "lucia";
-import { Session } from "lucia";
-import { IS_PRODUCTION } from "../constants";
+import { GitHub, Google } from "arctic"
+import { Lucia } from "lucia"
+import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle"
+import { db } from "@/db"
+import { sessions, users } from "@/db/schema"
+import { cookies } from "next/headers"
+import { User } from "lucia"
+import { Session } from "lucia"
+import { IS_PRODUCTION } from "../constants"
 
-const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
+const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users)
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
@@ -23,60 +23,50 @@ export const lucia = new Lucia(adapter, {
       email: attributes.email,
       emailVerified: attributes.emailVerified,
       allowedSites: attributes.allowedSites,
-    };
+    }
   },
-});
+})
 
-export const validateRequest = async (): Promise<
-  { user: User; session: Session } | { user: null; session: null }
-> => {
-  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+export const validateRequest = async (): Promise<{ user: User; session: Session } | { user: null; session: null }> => {
+  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null
   if (!sessionId) {
     return {
       user: null,
       session: null,
-    };
+    }
   }
 
-  const result = await lucia.validateSession(sessionId);
+  const result = await lucia.validateSession(sessionId)
 
   // next.js throws when you attempt to set cookie when rendering page
   try {
     if (result.session && result.session.fresh) {
-      const sessionCookie = lucia.createSessionCookie(result.session.id);
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes
-      );
+      const sessionCookie = lucia.createSessionCookie(result.session.id)
+      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
     }
     if (!result.session) {
-      const sessionCookie = lucia.createBlankSessionCookie();
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes
-      );
+      const sessionCookie = lucia.createBlankSessionCookie()
+      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
     }
-  } catch { }
-  return result;
-};
+  } catch {}
+  return result
+}
 
 declare module "lucia" {
   interface Register {
-    Lucia: typeof lucia;
+    Lucia: typeof lucia
     DatabaseUserAttributes: {
-      id: UserId;
-      email: string;
-      emailVerified: Date | null;
-      allowedSites: number;
-    };
+      id: UserId
+      email: string
+      emailVerified: Date | null
+      allowedSites: number
+    }
   }
 }
 
 export const github = new GitHub(process.env.GITHUB_CLIENT_ID!, process.env.GITHUB_CLIENT_SECRET!, {
-  redirectURI: process.env.GITHUB_CALLBACK_URL
-});
+  redirectURI: process.env.GITHUB_CALLBACK_URL,
+})
 
 // export const googleAuth = new Google(
 //   env.GOOGLE_CLIENT_ID,
