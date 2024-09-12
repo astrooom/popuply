@@ -6,8 +6,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      args:
-        NEXT_PUBLIC_HOST_NAME: ${NEXT_PUBLIC_HOST_NAME}
     restart: unless-stopped
     volumes:
     - .:/website
@@ -24,6 +22,29 @@ services:
       - POSTGRES_PORT=${POSTGRES_PORT_INTERNAL:-5432}
       - POSTGRES_USER=${POSTGRES_USER:-postgres}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+      # Emails
+      - EMAIL_FROM="Popuply <noreply@popuply.net>"
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+
+      # Github SSO
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+      - GITHUB_CALLBACK_URL=${GITHUB_CALLBACK_URL}
+
+      # BunnyCDN (Image uploads)
+      - NEXT_PUBLIC_BUNNYCDN_STORAGE_ZONE=${NEXT_PUBLIC_BUNNYCDN_STORAGE_ZONE}
+      - BUNNYCDN_ZONE_API_KEY=${BUNNYCDN_ZONE_API_KEY}
+      - BUNNYCDN_ACCOUNT_API_KEY=${BUNNYCDN_ACCOUNT_API_KEY}
+
+      # Stripe
+      - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+
     depends_on:
       postgres:
         condition: service_healthy
