@@ -27,12 +27,13 @@ RUN bun run build
 FROM imbios/bun-node:${NODE_VERSION}-alpine as runner
 WORKDIR /app
 
-ENV NODE_ENV production
-
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/static ./.next/static
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
+ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
 EXPOSE 3000
