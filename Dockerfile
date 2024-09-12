@@ -31,8 +31,14 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Copy Drizzle database migration script
-COPY --from=builder /src/db/migrate.ts migrate.ts
+# Copy Drizzle database migration script and migration folder
+COPY /src/db ./db
+COPY drizzle ./drizzle
+
+# Install Drizzle and dotenv to run migrations
+RUN cd drizzle/migrate && bun i
+
+WORKDIR /app
 
 # Set environment variables
 ENV NODE_ENV production
@@ -41,5 +47,8 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # Expose the necessary port
 EXPOSE 3000
 
+COPY production_run.sh ./
+RUN chmod +x /app/production_run.sh
+
 # Run database migrations and then start the server
-CMD ["/bin/sh", "-c", "npx tsx migrate.ts && node server.js"]
+ENTRYPOINT ["/app/production_run.sh"]
