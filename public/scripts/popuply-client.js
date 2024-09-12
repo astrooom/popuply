@@ -227,6 +227,7 @@
       const response = await fetch(`${apiUrl}/${siteId}`);
       const data = await response.json();
       const siteData = data.data;
+      console.log({ siteData });
 
       // Early check if popups should be shown based on page rules.
       const urlPath = new URL(window.location.href).pathname;
