@@ -28,7 +28,13 @@ FROM imbios/bun-node:${NODE_VERSION}-alpine as runner
 WORKDIR /app
 
 ENV NODE_ENV production
-COPY --from=builder  /app/.next/standalone ./
+
+# Copy over the build output
+COPY --from=builder /app/.next/standalone ./
+
+# Copy static assets and public folder to the standalone folder
+COPY --from=builder /app/.next/static ./standalone/.next/static
+COPY --from=builder /app/public ./standalone/public
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
