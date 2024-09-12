@@ -25,6 +25,10 @@ RUN bun run build
 FROM imbios/bun-node:${NODE_VERSION}-alpine as runner
 WORKDIR /app
 
+# Install production dependencies (used for running db seed & migrations)
+COPY package.json bun.lockb ./
+RUN bun install --production --frozen-lockfile --ignore-scripts
+
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder /app/.next/standalone ./
@@ -32,11 +36,8 @@ COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
 # Copy Drizzle database migration script and migration folder
-COPY /src/db ./db
+COPY /src/db ./src/db
 COPY drizzle ./drizzle
-
-# Install Drizzle and dotenv to run migrations
-RUN cd drizzle/migrate && bun i
 
 WORKDIR /app
 

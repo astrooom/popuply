@@ -1,5 +1,5 @@
-import { Many, relations } from "drizzle-orm"
-import { timestamp, text, pgTable, serial, uuid, pgEnum, bigint, integer, varchar, boolean, json } from "drizzle-orm/pg-core"
+import { relations } from "drizzle-orm"
+import { timestamp, text, pgTable, uuid, pgEnum, bigint, integer, varchar, boolean, json } from "drizzle-orm/pg-core"
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
