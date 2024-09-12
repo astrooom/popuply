@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getErrorMessage } from '@/lib/error';
 import { serverLogger } from '@/lib/utils/server/logging';
-import { db, eq } from '@/db';
-import { orders } from '@/db/schema';
+import { getUserBySessionId } from '@/lib/api/users';
 import { setSession } from '@/lib/auth/session';
 
 export async function POST(request: NextRequest) {
@@ -28,21 +27,4 @@ export async function POST(request: NextRequest) {
     serverLogger.error({ type: "STRIPE", msg: "Confirm Checkout Success Error", details: { error: getErrorMessage(error) } });
     return NextResponse.json({ error: getErrorMessage(error) }, { status: 400 });
   }
-}
-
-export async function getUserBySessionId(sessionId: string) {
-  const result = await db.query.orders.findFirst({
-    where: eq(orders.sessionId, sessionId),
-    with: {
-      user: true
-    }
-  });
-
-  // If no order is found or the order has no associated user, return null
-  if (!result || !result.user) {
-    return null;
-  }
-
-  // Return just the user object
-  return result.user;
 }

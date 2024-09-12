@@ -3,8 +3,8 @@ import { Pool } from "pg"
 import * as schema from "./schema"
 
 export const pool = new Pool({
-  host: process.env.POSTGRES_HOST_EXTERNAL as string,
-  port: Number(process.env.POSTGRES_PORT_EXTERNAL) as number,
+  host: process.env.POSTGRES_HOST as string,
+  port: Number(process.env.POSTGRES_PORT) as number,
   user: process.env.POSTGRES_USER as string,
   password: process.env.POSTGRES_PASSWORD as string,
   database: process.env.POSTGRES_DATABASE as string,

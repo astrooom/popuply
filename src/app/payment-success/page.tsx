@@ -1,6 +1,7 @@
 import { CheckCircle } from 'lucide-react';
 import { Navbar } from '../Navbar';
 import { GoToDashboardButton } from './GoToDashboardButton';
+import { Suspense } from 'react';
 
 export default function PaymentSuccessPage() {
   return (
@@ -19,7 +20,9 @@ export default function PaymentSuccessPage() {
                   Great news! Your payment has been processed successfully. Thank you for your purchase. We&apos;re excited to have you on board!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <GoToDashboardButton />
+                  <Suspense>
+                    <GoToDashboardButton />
+                  </Suspense>
                 </div>
               </div>
             </div>

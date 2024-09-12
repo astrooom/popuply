@@ -4,23 +4,22 @@ import Stripe from 'stripe';
 import { HOST_NAME, IS_PRODUCTION } from "../constants";
 import { PRODUCTS } from "../constants/checkout";
 import { serverLogger } from "../utils/server/logging";
-import { setSession } from "../auth/session";
 import { v4 as uuidv4 } from 'uuid';
-import { withQuery } from "ufo";
 import { db, eq } from "@/db";
 import { orders, users } from "@/db/schema";
 import { generateEmailVerificationCode } from "../auth/email";
 import { sendVerificationCodeEmail } from "../emails/verificationCodeEmail";
 import { upsertUser } from "./users";
+import { STRIPE_SECRET_KEY } from "../constants/server/checkout.server";
 // import { users, subscriptions } from './your-schema';
 
-if (!process.env.STRIPE_TEST_SECRET_KEY) {
+if (!STRIPE_SECRET_KEY) {
   throw new Error(
-    "STRIPE_TEST_SECRET_KEY is missing. Please set the environment variable."
+    "STRIPE_SECRET_KEY is missing. Please set the environment variable."
   );
 }
 
-export const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY, {
+export const stripe = new Stripe(STRIPE_SECRET_KEY, {
   apiVersion: "2024-06-20",
 });
 

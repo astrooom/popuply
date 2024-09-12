@@ -3,8 +3,9 @@ import { Navbar } from "./Navbar"
 import { HomeFaq } from "./HomeFaq"
 import { LearnMore } from "./LearnMore"
 
-export default function HomePage({ searchParams }: { searchParams: { loggedOut?: boolean } }) {
-  // await getServerSession(authOptions);
+export const dynamic = 'force-dynamic'
+
+export default function HomePage() {
 
   return (
     <>

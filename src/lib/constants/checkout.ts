@@ -1,6 +1,4 @@
-import { IS_DEVELOPMENT } from "./global";
-
-export const NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = IS_DEVELOPMENT ? process.env.NEXT_PUBLIC_TEST_STRIPE_PUBLISHABLE_KEY : process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+export const NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
 export const PRODUCTS = [
   { id: '1site', name: '1 Site', price: 10, sites: 1, pricingId: "price_1PxskRCbIUymC3Vfavu7QhU9" },

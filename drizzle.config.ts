@@ -5,8 +5,8 @@ const config = {
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {
-    host: process.env.POSTGRES_HOST_EXTERNAL as string,
-    port: Number(process.env.POSTGRES_PORT_EXTERNAL) as number,
+    host: process.env.POSTGRES_HOST as string,
+    port: Number(process.env.POSTGRES_PORT) as number,
     user: process.env.POSTGRES_USER as string,
     password: process.env.POSTGRES_PASSWORD as string,
     database: process.env.POSTGRES_DATABASE as string,
