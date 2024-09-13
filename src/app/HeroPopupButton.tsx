@@ -98,6 +98,7 @@ export function HeroPopupButton() {
     const popupData = {
       ...randomPopup,
       theme: isDarkMode ? "dark" : "light",
+      frequency: 5000,
     }
 
     const response = await fetch(`/api/external/webhook/showcase`, {

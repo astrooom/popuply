@@ -197,8 +197,23 @@
   }
 
   // Unified popup display function
-  function displayPopup(popup, container, cdnUrl, isMobile) {
+  function displayPopup(popup, container, cdnUrl, isMobile, frequency) {
+
+    const frequencyToUse = popup.frequency ?? frequency ?? 5000;
+
     const popupElement = createPopupElement(popup, cdnUrl);
+
+    // For mobile, remove any existing popups before adding the new one
+    if (isMobile) {
+      const existingPopups = container.querySelectorAll('.popuply-popup');
+      existingPopups.forEach(popup => {
+        popup.classList.add('hiding');
+        setTimeout(() => {
+          container.removeChild(popup);
+        }, 300); // Match this with the popupExit animation duration
+      });
+    }
+
     container.appendChild(popupElement);
 
     // Remove 'initial' class after a short delay to trigger entrance animation
@@ -206,19 +221,25 @@
       popupElement.classList.remove('initial');
     }, 50);
 
+    const displayDuration = isMobile ? frequencyToUse : (popup.duration || 5000);
+
     setTimeout(() => {
       popupElement.classList.add('hiding');
       popupElement.addEventListener('animationend', () => {
-        const remainingPopups = container.querySelectorAll('.popuply-popup:not(.hiding)');
-        remainingPopups.forEach(popup => {
-          popup.classList.add('moving-up');
-        });
-        setTimeout(() => {
+        if (!isMobile) {
+          const remainingPopups = container.querySelectorAll('.popuply-popup:not(.hiding)');
+          remainingPopups.forEach(popup => {
+            popup.classList.add('moving-up');
+          });
+          setTimeout(() => {
+            container.removeChild(popupElement);
+            remainingPopups.forEach(popup => popup.classList.remove('moving-up'));
+          }, 300); // Match this with the moveUp animation duration
+        } else {
           container.removeChild(popupElement);
-          remainingPopups.forEach(popup => popup.classList.remove('moving-up'));
-        }, 300); // Match this with the moveUp animation duration
+        }
       }, { once: true });
-    }, popup.duration || 5000);
+    }, displayDuration);
   }
 
   // Main functionality
@@ -226,13 +247,12 @@
     try {
       const response = await fetch(`${apiUrl}/${siteId}`);
       const data = await response.json();
+
       const { error, data: siteData } = data;
       if (error) {
         console.error(error);
         return;
       }
-
-      console.log({ siteData });
 
       // Early check if popups should be shown based on page rules.
       const urlPath = new URL(window.location.href).pathname;
@@ -254,7 +274,7 @@
       function showNextPopup() {
         if (currentIndex < popups.length) {
           const popup = popups[currentIndex];
-          displayPopup(popup, container, cdnUrl, isMobile);
+          displayPopup(popup, container, cdnUrl, isMobile, siteData.frequency);
           currentIndex++;
           setTimeout(showNextPopup, siteData.frequency);
         }
@@ -264,7 +284,7 @@
 
       // Initialize SSE for real-time popups (if webhooks are enabled)
       if (siteData.enableWebhook) {
-        initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile);
+        initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile, siteData.frequency);
       }
     } catch (error) {
       console.error('Error initializing popups:', error);
@@ -272,9 +292,9 @@
   }
 
   // WebSocket connection and message handling
-  function initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile) {
+  function initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile, frequency) {
     const wsUrl = apiUrl.replace(/^http/, 'ws') + '/ws?id=' + siteId;
-    console.log({ wsUrl });
+
     let ws;
     let reconnectAttempts = 0;
     const maxReconnectAttempts = 5;
@@ -285,26 +305,26 @@
     function connect() {
       // Check if there's already an active connection
       if (ws && (ws.readyState === WebSocket.CONNECTING || ws.readyState === WebSocket.OPEN)) {
-        console.log('WebSocket connection already exists. Skipping reconnection.');
+        //console.log('WebSocket connection already exists. Skipping reconnection.');
         return;
       }
 
       ws = new WebSocket(wsUrl);
 
       ws.onopen = function () {
-        console.log('WebSocket connection established');
+        // console.log('WebSocket connection established');
         reconnectAttempts = 0;
         missedHeartbeats = 0;
         heartbeat();
       };
 
       ws.onmessage = function (event) {
-        console.log('WebSocket message received:', event.data);
+        //console.log('WebSocket message received:', event.data);
         missedHeartbeats = 0;
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'show_popup') {
-            displayPopup(data.popup, container, cdnUrl, isMobile);
+            displayPopup(data.popup, container, cdnUrl, isMobile, frequency);
           } else if (data.type === 'heartbeat') {
             // Reset missed heartbeats on receiving a heartbeat
             missedHeartbeats = 0;
@@ -316,7 +336,7 @@
 
       ws.onclose = function (event) {
         clearInterval(heartbeatInterval);
-        console.log('WebSocket connection closed', event.code, event.reason);
+        //console.log('WebSocket connection closed', event.code, event.reason);
 
         // Check if the closure was clean (intentional) or not
         if (!event.wasClean) {
@@ -337,7 +357,7 @@
           ws.send(JSON.stringify({ type: 'heartbeat' }));
           missedHeartbeats++;
           if (missedHeartbeats >= maxMissedHeartbeats) {
-            console.log('Too many missed heartbeats, reconnecting...');
+            //console.log('Too many missed heartbeats, reconnecting...');
             ws.close();
             attemptReconnect();
           }
@@ -348,7 +368,7 @@
     function attemptReconnect() {
       if (reconnectAttempts < maxReconnectAttempts) {
         const delay = Math.pow(2, reconnectAttempts) * 1000;
-        console.log(`Attempting to reconnect in ${delay / 1000} seconds...`);
+        //console.log(`Attempting to reconnect in ${delay / 1000} seconds...`);
         setTimeout(connect, delay);
         reconnectAttempts++;
       } else {
@@ -358,10 +378,10 @@
 
     function ensureConnection() {
       if (!ws || ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING) {
-        console.log('No active WebSocket connection, attempting to connect...');
+        //console.log('No active WebSocket connection, attempting to connect...');
         connect();
       } else {
-        console.log('WebSocket connection already exists.');
+        //console.log('WebSocket connection already exists.');
       }
     }
 
@@ -371,14 +391,14 @@
     // Handle page visibility changes
     document.addEventListener('visibilitychange', function () {
       if (!document.hidden) {
-        console.log('Page became visible, ensuring WebSocket connection');
+        //console.log('Page became visible, ensuring WebSocket connection');
         ensureConnection();
       }
     });
 
     // Handle page navigation within SPA
     window.addEventListener('popstate', function () {
-      console.log('Page navigation detected, ensuring WebSocket connection');
+      //console.log('Page navigation detected, ensuring WebSocket connection');
       ensureConnection();
     });
 
@@ -419,7 +439,7 @@
   const cdnUrl = script.getAttribute('data-cdn-url') || 'https://popuply.b-cdn.net';
 
   // Print apiUrl
-  console.log('Popuply: API URL:', apiUrl);
+  //console.log('Popuply: API URL:', apiUrl);
 
   if (siteId) {
     initializePopups(siteId, apiUrl, cdnUrl);
