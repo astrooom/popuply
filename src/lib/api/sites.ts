@@ -241,7 +241,7 @@ export const getTestSite = unstable_cache(
   },
   ["test-site"], // cache key
   {
-    revalidate: 10 * 60, // revalidate every 10 minutes
+    revalidate: 60,
     tags: ["test-site-query"],
   },
 )
