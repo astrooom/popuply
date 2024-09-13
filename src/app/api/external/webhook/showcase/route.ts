@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { getTestSite } from "@/lib/api/sites"
 import { rateLimitByIp } from "@/lib/ratelimit"
 import { getErrorMessage } from "@/lib/error"
-import { triggerPopup } from "@/lib/api/sse"
+import { triggerPopup } from "@/lib/api/ws"
 import { Popup } from "@/db/schema"
 
 // This endpoint is only for the landing page popup test. This is because the test popups have a static site ID

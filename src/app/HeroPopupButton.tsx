@@ -115,28 +115,6 @@ export function HeroPopupButton({ siteId }: { siteId: string }) {
     }
   }
 
-  useEffect(() => {
-    console.log("USE EFFECT CALLED")
-    const scriptUrl = `${HOST_URL}/scripts/popuply-client.js`
-
-    // Create a script element
-    const script = document.createElement("script")
-    script.src = scriptUrl
-    script.dataset.siteId = siteId
-    if (IS_DEVELOPMENT) {
-      script.dataset.apiUrl = "http://localhost:3456/api/external/sites"
-    }
-    script.defer = true
-
-    // Append the script to the document body
-    document.body.appendChild(script)
-
-    // Cleanup function to remove the script when the component unmounts
-    return () => {
-      document.body.removeChild(script)
-    }
-  }, [siteId]) // Re-run if siteId changes
-
   return (
     <>
       <Button
@@ -148,6 +126,13 @@ export function HeroPopupButton({ siteId }: { siteId: string }) {
       >
         Pop-up! 🔔
       </Button>
+
+      <script
+        src={`${HOST_URL}/scripts/popuply-client.js`}
+        data-site-id={siteId}
+        data-api-url={IS_DEVELOPMENT ? "http://localhost:3456/api/external/sites" : undefined}
+        defer
+      ></script>
     </>
   )
 }

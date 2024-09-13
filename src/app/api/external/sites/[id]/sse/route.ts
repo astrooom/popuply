@@ -1,6 +1,6 @@
 import { rateLimitByIp } from "@/lib/ratelimit"
 import { NextRequest, NextResponse } from "next/server"
-import { clients } from "@/lib/api/sse"
+import { clients } from "@/lib/api/ws"
 import { getErrorMessage } from "@/lib/error"
 import { serverLogger } from "@/lib/utils/server/logging"
 import { headers } from "next/headers"

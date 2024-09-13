@@ -240,6 +240,8 @@
         return; // Exit early if popups shouldn't be shown
       }
 
+
+
       let popups = siteData.popups;
       if (siteData.orderMode === 'randomized') {
         popups = popups.sort(() => Math.random() - 0.5);
@@ -262,106 +264,133 @@
 
       // Initialize SSE for real-time popups (if webhooks are enabled)
       if (siteData.enableWebhook) {
-        initializeSSE(siteId, apiUrl, container, cdnUrl, isMobile);
+        initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile);
       }
     } catch (error) {
       console.error('Error initializing popups:', error);
     }
   }
 
-  // SSE initialization - attempt reconnection if connection is lost
-  function initializeSSE(siteId, apiUrl, container, cdnUrl, isMobile) {
-    let eventSource;
-    let retryCount = 0;
-    const maxRetryCount = 5;
-    const initialRetryDelay = 2000; // 2 seconds
+  // WebSocket connection and message handling
+  function initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile) {
+    const wsUrl = apiUrl.replace(/^http/, 'ws') + '/ws?id=' + siteId;
+    console.log({ wsUrl });
+    let ws;
+    let reconnectAttempts = 0;
+    const maxReconnectAttempts = 5;
+    let heartbeatInterval;
+    let missedHeartbeats = 0;
+    const maxMissedHeartbeats = 3;
 
     function connect() {
-      if (eventSource && eventSource.readyState === EventSource.OPEN) {
-        console.log('SSE connection already exists');
+      // Check if there's already an active connection
+      if (ws && (ws.readyState === WebSocket.CONNECTING || ws.readyState === WebSocket.OPEN)) {
+        console.log('WebSocket connection already exists. Skipping reconnection.');
         return;
       }
 
-      if (eventSource) {
-        eventSource.close();
-      }
+      ws = new WebSocket(wsUrl);
 
-      console.log('Establishing new SSE connection');
+      ws.onopen = function () {
+        console.log('WebSocket connection established');
+        reconnectAttempts = 0;
+        missedHeartbeats = 0;
+        heartbeat();
+      };
 
-      eventSource = new EventSource(`${apiUrl}/${siteId}/sse`);
-
-      eventSource.onmessage = function (event) {
-        console.log('SSE message received:', event.data);
+      ws.onmessage = function (event) {
+        console.log('WebSocket message received:', event.data);
+        missedHeartbeats = 0;
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'show_popup') {
             displayPopup(data.popup, container, cdnUrl, isMobile);
+          } else if (data.type === 'heartbeat') {
+            // Reset missed heartbeats on receiving a heartbeat
+            missedHeartbeats = 0;
           }
         } catch (error) {
-          console.error('Error parsing SSE message:', error);
+          console.error('Error parsing WebSocket message:', error);
         }
       };
 
-      eventSource.onerror = function (error) {
-        console.error('SSE connection error:', error);
-        eventSource.close();
+      ws.onclose = function (event) {
+        clearInterval(heartbeatInterval);
+        console.log('WebSocket connection closed', event.code, event.reason);
 
-        if (retryCount < maxRetryCount) {
-          const delay = initialRetryDelay * Math.pow(2, retryCount);
-          console.log(`Attempting to reconnect in ${delay / 1000} seconds...`);
-          setTimeout(connect, delay);
-          retryCount++;
-        } else {
-          console.error('Max retry attempts reached. Please refresh the page.');
+        // Check if the closure was clean (intentional) or not
+        if (!event.wasClean) {
+          attemptReconnect();
         }
       };
 
-      eventSource.onopen = function () {
-        console.log('SSE connection opened');
-        retryCount = 0; // Reset retry count on successful connection
+      ws.onerror = function (error) {
+        console.error('WebSocket error:', error);
+        // The onerror event is typically followed by onclose, so we'll handle reconnection there
       };
-
-      // Handle keep-alive messages
-      eventSource.addEventListener('message', function (event) {
-        if (event.data.trim() === ':keepalive') {
-          console.log('Received keep-alive message');
-        }
-      });
     }
 
-    function reconnectIfNeeded() {
-      if (!eventSource || eventSource.readyState === EventSource.CLOSED) {
-        console.log('Reconnecting SSE');
-        connect();
+    function heartbeat() {
+      clearInterval(heartbeatInterval);
+      heartbeatInterval = setInterval(() => {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ type: 'heartbeat' }));
+          missedHeartbeats++;
+          if (missedHeartbeats >= maxMissedHeartbeats) {
+            console.log('Too many missed heartbeats, reconnecting...');
+            ws.close();
+            attemptReconnect();
+          }
+        }
+      }, 30000); // Send a heartbeat every 30 seconds
+    }
+
+    function attemptReconnect() {
+      if (reconnectAttempts < maxReconnectAttempts) {
+        const delay = Math.pow(2, reconnectAttempts) * 1000;
+        console.log(`Attempting to reconnect in ${delay / 1000} seconds...`);
+        setTimeout(connect, delay);
+        reconnectAttempts++;
       } else {
-        console.log('SSE connection is already active');
+        console.error('Max reconnection attempts reached. Please refresh the page.');
       }
     }
+
+    function ensureConnection() {
+      if (!ws || ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING) {
+        console.log('No active WebSocket connection, attempting to connect...');
+        connect();
+      } else {
+        console.log('WebSocket connection already exists.');
+      }
+    }
+
+    // Initial connection
+    connect();
 
     // Handle page visibility changes
     document.addEventListener('visibilitychange', function () {
       if (!document.hidden) {
-        console.log('Page became visible, checking SSE connection');
-        reconnectIfNeeded();
+        console.log('Page became visible, ensuring WebSocket connection');
+        ensureConnection();
       }
     });
 
     // Handle page navigation within SPA
     window.addEventListener('popstate', function () {
-      console.log('Page navigation detected, checking SSE connection');
-      reconnectIfNeeded();
+      console.log('Page navigation detected, ensuring WebSocket connection');
+      ensureConnection();
     });
 
-    // Initial connection
-    connect();
-
-    // Reconnect on page unload (for page refreshes and navigations)
+    // Close WebSocket on page unload
     window.addEventListener('beforeunload', function () {
-      if (eventSource) {
-        eventSource.close();
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.close();
       }
     });
   }
+
+
 
   function shouldShowPopups(path, pageRuleType, pageRulePatterns) {
     const matchesPattern = pageRulePatterns.some(pageRulePatterns => path.includes(pageRulePatterns));

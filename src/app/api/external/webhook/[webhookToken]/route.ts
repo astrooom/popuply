@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { validateWebhookToken } from "@/lib/api/sites"
 import { rateLimitByIp } from "@/lib/ratelimit"
 import { getErrorMessage } from "@/lib/error"
-import { triggerPopup } from "@/lib/api/sse"
+import { triggerPopup } from "@/lib/api/ws"
 import { Popup } from "@/db/schema"
 
 export const POST = async (request: NextRequest, { params }: { params: { webhookToken: string } }) => {
