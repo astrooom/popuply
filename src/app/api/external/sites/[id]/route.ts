@@ -33,34 +33,30 @@ export function SOCKET(client: import("ws").WebSocket, request: import("node:htt
   serverLogger.info({ type: "WS", msg: "Received incoming WS connection." })
   const url = new URL(request.url || "", `http://${request.headers.host}`)
   const siteId = url.searchParams.get("id")
-
   if (!siteId) {
     serverLogger.error({ type: "WS", msg: "Missing site id" })
     client.close(1008, "Missing site id")
     return
   }
-  console.log({ siteId })
-
+  serverLogger.info({ type: "WS", msg: "Client connected", details: { siteId } })
   if (!clients.has(siteId)) {
     clients.set(siteId, new Set())
   }
   clients.get(siteId)!.add(client)
+  serverLogger.info({ type: "WS", msg: "Client added to Map", details: { siteId, clientCount: clients.get(siteId)!.size } })
 
   const { send, broadcast } = createHelpers(client, server)
-
-  // When a new client connects broadcast a connect message
   broadcast({ author: "Server", content: "A new client has connected." })
   send({ author: "Server", content: "Welcome!" })
 
   client.on("close", () => {
-    serverLogger.info({ type: "WS", msg: "Client disconnected." })
-
-    // Remove the client from the set when it disconnects
+    serverLogger.info({ type: "WS", msg: "Client disconnected", details: { siteId } })
     clients.get(siteId)?.delete(client)
-
-    // If the set is empty, remove the siteId from the map
-    if (clients.get(siteId)?.size === 0) {
+    const remainingClients = clients.get(siteId)?.size || 0
+    serverLogger.info({ type: "WS", msg: "Client removed from Map", details: { siteId, remainingClients } })
+    if (remainingClients === 0) {
       clients.delete(siteId)
+      serverLogger.info({ type: "WS", msg: "SiteId removed from Map", details: { siteId } })
     }
   })
 }
