@@ -226,7 +226,12 @@
     try {
       const response = await fetch(`${apiUrl}/${siteId}`);
       const data = await response.json();
-      const siteData = data.data;
+      const { error, data: siteData } = data;
+      if (error) {
+        console.error(error);
+        return;
+      }
+
       console.log({ siteData });
 
       // Early check if popups should be shown based on page rules.
@@ -272,10 +277,21 @@
     const initialRetryDelay = 2000; // 2 seconds
 
     function connect() {
+      if (eventSource && eventSource.readyState === EventSource.OPEN) {
+        console.log('SSE connection already exists');
+        return;
+      }
+
+      if (eventSource) {
+        eventSource.close();
+      }
+
+      console.log('Establishing new SSE connection');
+
       eventSource = new EventSource(`${apiUrl}/${siteId}/sse`);
 
       eventSource.onmessage = function (event) {
-        console.log('SSE message:', event.data);
+        console.log('SSE message received:', event.data);
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'show_popup') {
@@ -297,7 +313,6 @@
           retryCount++;
         } else {
           console.error('Max retry attempts reached. Please refresh the page.');
-          // Optionally, notify the user to refresh the page
         }
       };
 
@@ -305,10 +320,47 @@
         console.log('SSE connection opened');
         retryCount = 0; // Reset retry count on successful connection
       };
+
+      // Handle keep-alive messages
+      eventSource.addEventListener('message', function (event) {
+        if (event.data.trim() === ':keepalive') {
+          console.log('Received keep-alive message');
+        }
+      });
     }
+
+    function reconnectIfNeeded() {
+      if (!eventSource || eventSource.readyState === EventSource.CLOSED) {
+        console.log('Reconnecting SSE');
+        connect();
+      } else {
+        console.log('SSE connection is already active');
+      }
+    }
+
+    // Handle page visibility changes
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) {
+        console.log('Page became visible, checking SSE connection');
+        reconnectIfNeeded();
+      }
+    });
+
+    // Handle page navigation within SPA
+    window.addEventListener('popstate', function () {
+      console.log('Page navigation detected, checking SSE connection');
+      reconnectIfNeeded();
+    });
 
     // Initial connection
     connect();
+
+    // Reconnect on page unload (for page refreshes and navigations)
+    window.addEventListener('beforeunload', function () {
+      if (eventSource) {
+        eventSource.close();
+      }
+    });
   }
 
   function shouldShowPopups(path, pageRuleType, pageRulePatterns) {
