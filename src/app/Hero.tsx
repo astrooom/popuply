@@ -16,7 +16,7 @@ export const Hero = () => {
               <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">loyal customers</span>
             </h1>
             <p className="text-xl text-foreground md:w-11/12 mx-auto lg:mx-0">
-              Deliver configurable, impactful, and <strong>attention-grabbing</strong> pop-up notifications that drive engagement and boost
+              Deliver configurable, impactful, and <strong>attention-grabbing</strong> popup toasts that drive engagement and boost
               conversions. 🚀
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center lg:justify-start">
