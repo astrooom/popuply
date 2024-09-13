@@ -16,6 +16,20 @@ export default function HomePage() {
       <div className="container">
         <div className="pt-32 pb-12">
           <Hero />
+
+          <div className="flex justify-center -mt-8">
+            <a
+              href="https://www.producthunt.com/posts/popuply?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-popuply"
+              target="_blank"
+            >
+              <img
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=489254&theme=light"
+                alt="Popuply - Simple&#0032;popup&#0032;toasts&#0032;that&#0032;engage&#0032;visitors&#0044;&#0032;no&#0032;coding&#0032;needed | Product Hunt"
+                className="w-[250px] h-[54px]"
+              />
+            </a>
+          </div>
+
           <LearnMore />
         </div>
         <div className="p-6">

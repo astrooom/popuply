@@ -59,6 +59,15 @@ export function HomeFaq() {
           </p>
         </AccordionContent>
       </AccordionItem>
+      <AccordionItem value="mobile">
+        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500">
+          Does it work on mobile?{" "}
+          <ChevronRight className="ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
+        </AccordionTrigger>
+        <AccordionContent>
+          <p className="text-foreground">Yes it does! On mobile, only one popup will appear at a time to save screen space.</p>
+        </AccordionContent>
+      </AccordionItem>
     </Accordion>
   )
 }
