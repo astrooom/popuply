@@ -17,10 +17,11 @@ export default async function ConfirmCode({ searchParams }: { searchParams: { di
     return redirect("/login")
   }
 
-  // If the user is already verified, redirect to the dashboard with a success message (if one is provided)
-  if (user.emailVerified) {
-    return redirect("/dashboard")
-  }
+  // INESCURE - Do not redirect if the email is already verified. This could cause users to be able to log in to other users accounts
+  // // If the user is already verified and, redirect to the dashboard with a success message (if one is provided)
+  // if (user.emailVerified) {
+  //   return redirect("/dashboard")
+  // }
 
   return (
     <div className="container">

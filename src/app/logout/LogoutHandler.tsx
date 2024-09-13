@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 export function LogoutHandler() {
-  const { push } = useRouter()
+  const { push, refresh } = useRouter()
 
   useEffect(() => {
     const logout = async () => {
@@ -14,6 +14,7 @@ export function LogoutHandler() {
         push("/dashboard")
       }
       push("/")
+      refresh()
     }
 
     logout()
