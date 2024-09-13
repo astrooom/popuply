@@ -41,5 +41,6 @@ export async function logOut() {
   if (!sessionId) {
     return
   }
+  cookies().delete(lucia.sessionCookieName)
   await lucia.invalidateSession(sessionId)
 }
