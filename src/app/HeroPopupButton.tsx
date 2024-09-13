@@ -4,9 +4,8 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/utils/cn"
 import { toast } from "sonner"
-import { HOST_URL, IS_DEVELOPMENT } from "@/lib/constants"
 
-export function HeroPopupButton({ siteId }: { siteId: string }) {
+export function HeroPopupButton() {
   const [isDarkMode, setIsDarkMode] = useState(false)
 
   useEffect(() => {
@@ -116,23 +115,14 @@ export function HeroPopupButton({ siteId }: { siteId: string }) {
   }
 
   return (
-    <>
-      <Button
-        onClick={testPopup}
-        className={cn(
-          "w-full md:w-1/3",
-          isDarkMode ? "bg-fuchsia-900 hover:bg-fuchsia-800 text-white" : "bg-fuchsia-700 hover:bg-fuchsia-800",
-        )}
-      >
-        Pop-up! 🔔
-      </Button>
-
-      <script
-        src={`${HOST_URL}/scripts/popuply-client.js`}
-        data-site-id={siteId}
-        data-api-url={IS_DEVELOPMENT ? "http://localhost:3456/api/external/sites" : undefined}
-        defer
-      ></script>
-    </>
+    <Button
+      onClick={testPopup}
+      className={cn(
+        "w-full md:w-1/3",
+        isDarkMode ? "bg-fuchsia-900 hover:bg-fuchsia-800 text-white" : "bg-fuchsia-700 hover:bg-fuchsia-800",
+      )}
+    >
+      Pop-up! 🔔
+    </Button>
   )
 }

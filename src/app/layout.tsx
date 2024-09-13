@@ -1,4 +1,3 @@
-import type { Metadata } from "next"
 import { Short_Stack, Itim } from "next/font/google"
 import { cn } from "@/utils/cn"
 import "@/app/style.css"
@@ -6,6 +5,7 @@ import "@/app/style.css"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import { Toaster } from "@/components/ui/Sonner"
 import { Footer } from "./Footer"
+import { ScriptLoader } from "./ScriptLoader"
 
 const shortStack = Short_Stack({
   subsets: ["latin"],
@@ -41,6 +41,8 @@ export default function RootLayout({
 
           {/* </AuthProvider> */}
         </ThemeProvider>
+
+        <ScriptLoader />
       </body>
     </html>
   )
