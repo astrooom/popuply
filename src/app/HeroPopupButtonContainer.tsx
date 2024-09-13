@@ -4,7 +4,7 @@ import { getTestSite } from "@/lib/api/sites"
 
 export async function HeroPopupButtonContainer() {
   const { id } = await getTestSite()
-  return <HeroPopupButton siteId={id} />
+  return <HeroPopupButton />
 }
 
 export function HeroPopupButtonSkeleton() {

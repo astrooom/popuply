@@ -25,6 +25,8 @@ COPY --from=deps /app/ ./
 COPY src ./src
 COPY public ./public
 
+RUN npx next-ws-cli@latest patch
+
 RUN bun run build
 
 # Stage 3 - run
