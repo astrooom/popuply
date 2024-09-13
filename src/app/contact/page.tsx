@@ -15,7 +15,7 @@ export default function Page() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center pt-16 pb-12">
           <h1 className="text-4xl font-bold mb-4">Contact</h1>
-          <p className="text-xl mb-8">We&apos;re here to help! Get in touch with us for any questions or concerns.</p>
+          <p className="text-xl mb-8">I&apos;m here to help! Get in touch with me for any questions or concerns.</p>
 
           <div className="grid md:grid-cols-1 gap-8 mb-12">
             <div className="flex flex-col items-center">
