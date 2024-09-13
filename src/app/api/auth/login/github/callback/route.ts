@@ -1,7 +1,7 @@
 import { github, lucia } from "@/lib/auth"
 import { cookies } from "next/headers"
 import { OAuth2RequestError } from "arctic"
-import { db, eq } from "@/db"
+import { db, eq, or } from "@/db"
 import { setSession } from "@/lib/auth/session"
 import { serverLogger } from "@/lib/utils/server/logging"
 import { NextResponse } from "next/server"
@@ -55,11 +55,19 @@ export async function GET(request: Request): Promise<Response> {
     const email = githubEmail.toLowerCase()
 
     const existingUser = await db.query.users.findFirst({
-      where: eq(users.githubId, githubUser.id),
+      where: or(eq(users.githubId, githubUser.id), eq(users.email, email)),
     })
 
     if (existingUser) {
-      serverLogger.info({ type: "GitHub", msg: "User already exists", details: existingUser })
+      if (existingUser.githubId === githubUser.id) {
+        // User already linked with GitHub
+        serverLogger.info({ type: "GitHub", msg: "User already linked with GitHub", details: existingUser })
+      } else if (existingUser.email === email) {
+        // User exists with email, but GitHub not linked. Link it now.
+        await db.update(users).set({ githubId: githubUser.id }).where(eq(users.id, existingUser.id))
+        serverLogger.info({ type: "GitHub", msg: "Linked GitHub to existing email account", details: existingUser })
+      }
+
       await setSession(existingUser.id)
       return NextResponse.redirect(dashboardUrl)
     }
