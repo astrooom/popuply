@@ -1,8 +1,5 @@
-import { logOut } from "@/lib/auth/session"
-import { redirect } from "next/navigation"
-import { withQuery } from "ufo"
+import { LogoutHandler } from "./LogoutHandler"
 
 export default async function Logout() {
-  await logOut()
-  return redirect(withQuery("/", { loggedOut: true }))
+  return <LogoutHandler />
 }

@@ -35,12 +35,3 @@ export async function setSession(userId: UserId) {
   const sessionCookie = lucia.createSessionCookie(session.id)
   cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 }
-
-export async function logOut() {
-  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null
-  if (!sessionId) {
-    return
-  }
-  cookies().delete(lucia.sessionCookieName)
-  await lucia.invalidateSession(sessionId)
-}
