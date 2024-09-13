@@ -1,16 +1,29 @@
 import { headers } from "next/headers"
 
 export function getIp() {
-  const forwardedFor = headers().get("x-forwarded-for")
-  const realIp = headers().get("x-real-ip")
+  const headersList = headers()
 
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0].trim()
+  // Cloudflare-specific headers
+  const cfConnectingIp = headersList.get("cf-connecting-ip")
+
+  // Other common headers
+  const xForwardedFor = headersList.get("x-forwarded-for")
+  const xRealIp = headersList.get("x-real-ip")
+
+  // Prioritize Cloudflare headers
+  if (cfConnectingIp) {
+    return cfConnectingIp.trim()
   }
 
-  if (realIp) {
-    return realIp.trim()
+  // Fall back to other headers if Cloudflare headers are not available
+  if (xForwardedFor) {
+    return xForwardedFor.split(",")[0].trim()
   }
 
+  if (xRealIp) {
+    return xRealIp.trim()
+  }
+
+  // If no IP is found, return null
   return null
 }

@@ -2,6 +2,7 @@ import { rateLimitByIp } from "@/lib/ratelimit"
 import { NextRequest, NextResponse } from "next/server"
 import { clients } from "@/lib/api/sse"
 import { getErrorMessage } from "@/lib/error"
+import { serverLogger } from "@/lib/utils/server/logging"
 
 export const runtime = "nodejs"
 
@@ -11,6 +12,17 @@ export const dynamic = "force-dynamic"
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     await rateLimitByIp({ key: "external-site-sse", limit: 4, window: 1000 })
+
+    serverLogger.info({
+      type: "API",
+      msg: "Received request to connect to SSE stream",
+      details: {
+        params,
+        request: {
+          headers: request.headers,
+        },
+      },
+    })
 
     const { id } = params
 
@@ -49,7 +61,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     return new NextResponse(stream, {
       headers: {
         "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
+        "Cache-Control": "no-cache, no-store",
+        "X-Accel-Buffering": "no",
         Connection: "keep-alive",
       },
     })
