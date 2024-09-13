@@ -5,6 +5,7 @@ import { SiteSettings } from "./SiteSettings"
 import { AccessContainer } from "./AccessContainer"
 import { SiteNavbar } from "./SiteNavbar"
 import type { Metadata } from "next"
+import { DeleteSiteButton } from "./DeleteSiteButton"
 
 export const metadata: Metadata = {
   title: "Popuply | Site",
@@ -39,8 +40,10 @@ export default async function SitePage({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          <div className="lg:mx-auto lg:w-8/12">
+          <div className="lg:mx-auto lg:w-8/12 flex flex-col gap-y-8">
             <AccessContainer siteId={siteId} />
+
+            <DeleteSiteButton siteId={siteId} />
           </div>
         </div>
       </div>

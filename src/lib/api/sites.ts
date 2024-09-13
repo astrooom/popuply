@@ -86,6 +86,7 @@ export const deleteSite = async ({ siteId }: { siteId: string }) => {
     .delete(sites)
     .where(and(eq(sites.id, siteId), eq(sites.userId, user.id)))
     .returning()
+
   serverLogger.info({ type: "API", msg: "Deleted site", details: { site, user } })
 
   return site
