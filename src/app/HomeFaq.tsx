@@ -58,7 +58,7 @@ export function HomeFaq() {
             </ul>
             <br></br>
             <strong>How does it work?</strong>
-            <p>For you techies out there - realtime popups work through webhooks.</p>
+            <p>For you techies out there - realtime popups work through websockets.</p>
           </p>
         </AccordionContent>
       </AccordionItem>
