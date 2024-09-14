@@ -1,5 +1,4 @@
 "use client"
-
 import { useState } from "react"
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/NavigationMenu"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/Sheet"
@@ -21,10 +20,8 @@ export const Navbar = () => {
               <span>Popuply</span>
             </Link>
           </NavigationMenuItem>
-
           {/* mobile */}
           <span className="flex md:hidden">
-            {/* <ModeToggle /> */}
             <ThemeToggle />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger className="px-2">
@@ -33,23 +30,37 @@ export const Navbar = () => {
                   <Menu className="h-5 w-5" />
                 </div>
               </SheetTrigger>
-
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">Popuply</SheetTitle>
                 </SheetHeader>
+                <div className="flex flex-col gap-4 mt-4">
+                  <Link
+                    href="/login"
+                    className={`w-full text-center ${buttonVariants({ variant: "positive" })}`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Get Started
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className={`w-full text-center ${buttonVariants({ variant: "secondary" })}`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Contact
+                  </Link>
+                </div>
               </SheetContent>
             </Sheet>
           </span>
-
           {/* desktop */}
-
           <div className="hidden md:flex gap-2">
-            <Link href="/login" className={`border ${buttonVariants({ variant: "secondary" })}`}>
+            <Link href="/login" className={`border ${buttonVariants({ variant: "positive" })}`}>
               Get Started
             </Link>
-
-            {/* <ModeToggle /> */}
+            <Link href="/contact" className={`border ${buttonVariants({ variant: "secondary" })}`}>
+              Contact
+            </Link>
             <ThemeToggle />
           </div>
         </NavigationMenuList>
