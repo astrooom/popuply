@@ -11,7 +11,6 @@ Turn visitors into loyal customers with configurable, impactful, and **attention
 - 🖥️ Multi-site support
 - ♾️ Unlimited Popups
 - 🛠️ No Coding Required
-- 🆘 24/7 Support
 - 🔄 Regular Updates
 
 ## 🚀 Why Choose Popuply?
@@ -29,28 +28,16 @@ Discover how our easy-to-use features can help you engage your audience without 
 
 - Welcome new visitors with a friendly greeting
 - Highlight special offers or promotions
-- Collect email subscriptions for newsletters
-- Provide timely customer support information
 - Showcase new product features or updates
-- Gather feedback through quick surveys
-
-## ❓ Frequently Asked Questions
-
-[Add your FAQ content here]
 
 ## 🔗 Quick Links
 
-- [Get Started](https://your-website.com/get-started)
-- [Learn More](https://your-website.com/learn-more)
-- [Contact Us](https://your-website.com/contact)
+- [Get Started](https://popuply.net)
+- [Contact Us](https://popuply.net/contact)
 
 ## 🛠️ Installation
 
-[Add installation instructions here]
-
-## 📖 Usage
-
-[Add basic usage instructions or link to documentation]
+Simply add a provided <script> tag to your website. Optionally, set up a webhook to trigger popups on events.
 
 ---
 
