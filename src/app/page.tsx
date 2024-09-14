@@ -6,7 +6,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Popuply",
-  description: "Turn visitors into loyal customers",
+  description: "Simple popup toasts that drive engagement and boost conversions.",
 }
 
 export default function HomePage() {
