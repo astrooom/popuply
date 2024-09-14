@@ -13,9 +13,12 @@ export function Footer() {
 
         <p className="text-sm">© Buddleja Corporation. {new Date().getFullYear()}. All rights reserved.</p>
 
-        <ul className="mt-2 flex gap-2 justify-center">
+        <ul className="mt-2">
           <li className="text-sm text-blue-500">
             <Link href="/contact">Contact</Link>
+          </li>
+          <li className="text-sm text-blue-500">
+            <a href="https://github.com/astrooom/popuply">Github</a>
           </li>
         </ul>
       </div>
