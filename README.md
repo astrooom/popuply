@@ -1,46 +1,57 @@
-# Next.js + Auth.js + Drizzle + Docker starter
+# Popuply 🚀
 
-## Introduction
+Turn visitors into loyal customers with configurable, impactful, and **attention-grabbing** popup toasts that drive engagement and boost conversions on your site.
 
-This is a simple [Next.js](https://nextjs.org/) + [TypeScript](https://www.typescriptlang.org/) boilerplate app that uses [Auth.js](https://authjs.dev/) for authentication and session management. When a user logs in, their data is upserted to the [PostgreSQL](https://www.postgresql.org/) database with Auth.js's [@auth/drizzle-adapter](https://authjs.dev/reference/adapter/drizzle) adapter.
+## 🌟 Key Features
 
-The SQL models required by the AuthJS are available on Auth.js's [database models](https://authjs.dev/getting-started/adapters#models) documentation. This project uses [@auth/drizzle-adapter](https://authjs.dev/reference/adapter/drizzle) so we can use their pre-defined Drizzle schema for PostgreSQL to generate the correct migrations with Drizzle.
+- ⚡ Super fast setup
+- 📈 Increased engagement
+- 🔗 Hook to events in real time
+- 🔒 Lifetime Access
+- 🖥️ Multi-site support
+- ♾️ Unlimited Popups
+- 🛠️ No Coding Required
+- 🆘 24/7 Support
+- 🔄 Regular Updates
 
-This project uses [Docker Compose](https://www.docker.com/) for an easy dev setup, so you don't need to run a database natively. It will also automatically run the migrations for you when the Next.js server starts.
+## 🚀 Why Choose Popuply?
 
-## Getting Started
+Discover how our easy-to-use features can help you engage your audience without any hassle:
 
-#### Setup OAuth provider(s)
+1. **Simple Notifications**: Create basic popup notifications to engage your website visitors effectively.
+2. **Webhook Triggers**: Trigger customized popups based on webhook events for dynamic, real-time user engagement.
+3. **Quick Setup**: Get started in minutes with our super simple Popup builder. No coding skills required.
+4. **Basic Analytics**: Track how many visitors see and interact with your popups using our simple analytics.
+5. **Easy Customization**: Adjust colors, text, and basic layout to match your website's look and feel.
+6. **Privacy Friendly**: Our popups respect user privacy and can be easily dismissed, adhering to best practices.
 
-This project uses GitHub as the example OAuth provider. You can use any other OAuth provider by changing the configuration in `auth.ts`.
+## 💡 Use Cases
 
-Create a [GitHub OAuth application](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) with the callback URL of `http://localhost:3000/api/auth/callback/github`.
+- Welcome new visitors with a friendly greeting
+- Highlight special offers or promotions
+- Collect email subscriptions for newsletters
+- Provide timely customer support information
+- Showcase new product features or updates
+- Gather feedback through quick surveys
 
-#### Generate an Auth.js secret
+## ❓ Frequently Asked Questions
 
-Generate a random string for Auth.js to use to hash tokens, sign cookies and generate cryptographic keys.
+[Add your FAQ content here]
 
-```sh
-openssl rand -hex 32
-```
+## 🔗 Quick Links
 
-#### Configure the environment
+- [Get Started](https://your-website.com/get-started)
+- [Learn More](https://your-website.com/learn-more)
+- [Contact Us](https://your-website.com/contact)
 
-Now set the OAuth app's Client ID + Secret ID and Auth.js secret in the `.env.local` file.
+## 🛠️ Installation
 
-`.env.local` is ignored by Git, so you can safely store secrets in it. Duplicate values in `.env.local` will override those in `.env`.
+[Add installation instructions here]
 
-```sh
-cp .env .env.local
-vim .env.local
-```
+## 📖 Usage
 
-#### Run the development stack
+[Add basic usage instructions or link to documentation]
 
-This will automatically install the NPM dependencies and run the DB migrations
+---
 
-```bash
-docker compose up
-```
-
-Now visit http://localhost:3000 and login with GitHub! 🎉
+Made with 💙 by astroom
