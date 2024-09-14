@@ -2,12 +2,10 @@ import { PricingCard } from "./PricingCard"
 import { ArrowRight, Zap, Webhook, TrendingUp } from "lucide-react"
 import { buttonVariants } from "@/components/ui/Button"
 import Link from "next/link"
-import { HeroPopupButtonContainer, HeroPopupButtonSkeleton } from "./HeroPopupButtonContainer"
-import { Suspense } from "react"
 import { HeroPopupButton } from "./HeroPopupButton"
 export const Hero = () => {
   return (
-    <div className="bg-gradient-to-br from-purple-50/20 to-pink-50/20 dark:from-gray-900/10 dark:to-purple-900/10 dark:border px-8 py-16 rounded-xl">
+    <div className="bg-gradient-to-br from-purple-50/20 to-pink-50/20 dark:from-gray-900/10 dark:to-purple-900/10 dark:border lg:px-8 py-16 rounded-xl">
       <div className="container mx-auto px-4">
         <div className="flex lg:flex-row flex-col items-center justify-between gap-10">
           <section className="text-center lg:text-start space-y-8 lg:w-8/12">
@@ -17,7 +15,7 @@ export const Hero = () => {
             </h1>
             <p className="text-xl text-foreground md:w-11/12 mx-auto lg:mx-0">
               Deliver configurable, impactful, and <strong>attention-grabbing</strong> popup toasts that drive engagement and boost
-              conversions. 🚀
+              conversions on your site. 🚀
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center lg:justify-start">
               {/* <Suspense fallback={<HeroPopupButtonSkeleton />}>

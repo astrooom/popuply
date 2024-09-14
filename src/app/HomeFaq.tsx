@@ -5,9 +5,9 @@ export function HomeFaq() {
   return (
     <Accordion className="flex w-full flex-col">
       <AccordionItem value="getting-started">
-        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500">
+        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500 font-semibold">
           Is it compatible with?...{" "}
-          <ChevronRight className="ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
+          <ChevronRight className="ml-auto inline h-5 w-5 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
         </AccordionTrigger>
         <AccordionContent>
           <p className="text-foreground">
@@ -17,9 +17,9 @@ export function HomeFaq() {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="animation-properties">
-        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500">
+        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500 font-semibold">
           What can I customize?{" "}
-          <ChevronRight className="ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
+          <ChevronRight className="ml-auto inline h-5 w-5 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
         </AccordionTrigger>
         <AccordionContent>
           <p className="text-foreground">
@@ -38,9 +38,9 @@ export function HomeFaq() {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="webhook">
-        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500">
+        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500 font-semibold">
           Can I make popups trigger on events{" "}
-          <ChevronRight className="ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
+          <ChevronRight className="ml-auto inline h-5 w-5 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
         </AccordionTrigger>
         <AccordionContent>
           <p className="text-foreground">
@@ -56,13 +56,16 @@ export function HomeFaq() {
               <li>• New blog posts </li>
               <li>• New product reviews </li>
             </ul>
+            <br></br>
+            <strong>How does it work?</strong>
+            <p>For you techies out there - realtime popups work through webhooks.</p>
           </p>
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="mobile">
-        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500">
+        <AccordionTrigger className="w-full py-4 text-left text-foreground text-lg hover:text-zinc-500 font-semibold">
           Does it work on mobile?{" "}
-          <ChevronRight className="ml-auto inline h-4 w-4 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
+          <ChevronRight className="ml-auto inline h-5 w-5 text-foreground transition-transform duration-200 group-data-[expanded]:rotate-90" />
         </AccordionTrigger>
         <AccordionContent>
           <p className="text-foreground">Yes it does! On mobile, only one popup will appear at a time to save screen space.</p>

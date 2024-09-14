@@ -14,10 +14,10 @@ export default function HomePage() {
     <>
       <Navbar />
       <div className="container">
-        <div className="pt-32 pb-12">
+        <div className="md:pt-20 pb-12">
           <Hero />
 
-          <div className="flex justify-center -mt-8">
+          <div className="flex justify-center mt-4 md:-mt-8">
             <a
               href="https://www.producthunt.com/posts/popuply?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-popuply"
               target="_blank"

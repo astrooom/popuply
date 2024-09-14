@@ -53,7 +53,7 @@ export function PricingCardOrderButton({ plan }: { plan: (typeof PRODUCTS)[numbe
 
   return (
     <Button
-      className={cn("w-full bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-700 transition duration-300")}
+      className={cn("w-full bg-fuchsia-600 text-white py-3 px-4 rounded-lg hover:bg-fuchsia-700 transition duration-300")}
       onClick={handleCheckout}
     >
       Order
