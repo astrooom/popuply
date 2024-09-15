@@ -223,9 +223,21 @@ export function SiteSettingsForm({ site, className }: { site: Site; className?: 
             <FormItem>
               <FormLabel>Page Rule Patterns</FormLabel>
               <FormDescription>
-                The patterns that will skip triggering the popup.<br></br>For example, a pattern of{" "}
-                <span className="font-semibold">/login</span> will skip triggering the popup on all paths starting with{" "}
-                <span className="font-semibold">/login</span> including all subpaths. Vice versa if whitelist is selected.
+                {form.watch("pageRuleType") === "whitelist" ? (
+                  <>
+                    The patterns that will trigger the popup.
+                    <br />
+                    For example, a pattern of <span className="font-semibold">/product</span> will trigger the popup on all paths which are
+                    exactly <span className="font-semibold">/product</span>.
+                  </>
+                ) : (
+                  <>
+                    The patterns that will skip triggering the popup.
+                    <br />
+                    For example, a pattern of <span className="font-semibold">/login</span> will skip triggering the popup on all paths
+                    which are exactly <span className="font-semibold">/login</span>.
+                  </>
+                )}
               </FormDescription>
               <FormControl>
                 <div>

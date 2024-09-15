@@ -405,7 +405,7 @@
 
 
   function shouldShowPopups(path, pageRuleType, pageRulePatterns) {
-    const matchesPattern = pageRulePatterns.some(pageRulePatterns => path.includes(pageRulePatterns));
+    const matchesPattern = pageRulePatterns.some(pattern => path === pattern);
     return pageRuleType === 'blacklist' ? !matchesPattern : matchesPattern;
   }
 
