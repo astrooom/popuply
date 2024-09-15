@@ -3,10 +3,48 @@ import { Navbar } from "./Navbar"
 import { HomeFaq } from "./HomeFaq"
 import { LearnMore } from "./LearnMore"
 import type { Metadata } from "next"
+import { WithContext, Product, Offer } from "schema-dts"
+import { PRODUCTS } from "@/lib/constants/checkout"
 
 export const metadata: Metadata = {
-  title: "Popuply",
+  title: "Popuply | Simple Popup Toasts for Better Engagement",
+  description:
+    "Boost conversions with Popuply's easy-to-use popup toasts. No coding needed. Increase visitor engagement and drive results on your website.",
+  keywords: "popup toasts, website engagement, conversion boost, no-code popups",
+  openGraph: {
+    title: "Popuply - Engage Visitors with Simple Popup Toasts",
+    description: "Increase conversions and engagement with easy-to-implement popup toasts. No coding required.",
+    type: "website",
+    url: "https://popuply.net",
+    images: [
+      {
+        url: "https://popuply.net/images/popups-light.png",
+        width: 1200,
+        height: 630,
+        alt: "Popuply - Simple Popup Toasts",
+      },
+    ],
+  },
+}
+
+const jsonLd: WithContext<Product> = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://popuply.net#application",
+  name: "Popuply",
   description: "Simple popup toasts that drive engagement and boost conversions.",
+  applicationCategory: "BusinessApplication",
+  browserRequirements: ["requires HTML5 support", "requires JavaScript"],
+  operatingSystem: "Web",
+  offerCount: "3",
+  offers: PRODUCTS.map((product) => ({
+    "@type": "Offer",
+    name: product.name,
+    price: product.price,
+    priceCurrency: "USD",
+    description: `Popup toasts configurable on ${product.sites} site${product.sites > 1 ? "s" : ""}`,
+  })),
+  url: "https://popuply.net",
 }
 
 export default function HomePage() {
