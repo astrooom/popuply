@@ -197,10 +197,7 @@
   }
 
   // Unified popup display function
-  function displayPopup(popup, container, cdnUrl, isMobile, frequency) {
-
-    const frequencyToUse = popup.frequency ?? frequency ?? 5000;
-
+  function displayPopup(popup, container, cdnUrl, isMobile, frequency, hideAfter) {
     const popupElement = createPopupElement(popup, cdnUrl);
 
     // For mobile, remove any existing popups before adding the new one
@@ -221,7 +218,7 @@
       popupElement.classList.remove('initial');
     }, 50);
 
-    const displayDuration = isMobile ? frequencyToUse : (popup.duration || 5000);
+    const displayDuration = isMobile ? frequency : hideAfter;
 
     setTimeout(() => {
       popupElement.classList.add('hiding');
@@ -247,21 +244,17 @@
     try {
       const response = await fetch(`${apiUrl}/${siteId}`);
       const data = await response.json();
-
       const { error, data: siteData } = data;
+      console.log({ error, siteData });
       if (error) {
         console.error(error);
         return;
       }
-
       // Early check if popups should be shown based on page rules.
       const urlPath = new URL(window.location.href).pathname;
       if (!shouldShowPopups(urlPath, siteData.pageRuleType, siteData.pageRulePatterns)) {
         return; // Exit early if popups shouldn't be shown
       }
-
-
-
       let popups = siteData.popups;
       if (siteData.orderMode === 'randomized') {
         popups = popups.sort(() => Math.random() - 0.5);
@@ -270,21 +263,18 @@
       const container = createPopupContainer();
       let currentIndex = 0;
       const isMobile = window.innerWidth <= 768;
-
       function showNextPopup() {
         if (currentIndex < popups.length) {
           const popup = popups[currentIndex];
-          displayPopup(popup, container, cdnUrl, isMobile, siteData.frequency);
+          displayPopup(popup, container, cdnUrl, isMobile, siteData.frequency, siteData.hideAfter);
           currentIndex++;
           setTimeout(showNextPopup, siteData.frequency);
         }
       }
-
       setTimeout(showNextPopup, siteData.startAfter);
-
       // Initialize SSE for real-time popups (if webhooks are enabled)
       if (siteData.enableWebhook) {
-        initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile, siteData.frequency);
+        initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile, siteData.frequency, siteData.hideAfter);
       }
     } catch (error) {
       console.error('Error initializing popups:', error);
@@ -292,7 +282,7 @@
   }
 
   // WebSocket connection and message handling
-  function initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile, frequency) {
+  function initializeWebSocket(siteId, apiUrl, container, cdnUrl, isMobile, frequency, hideAfter) {
     const wsUrl = apiUrl.replace(/^http/, 'ws') + '/ws?id=' + siteId;
 
     let ws;
@@ -324,7 +314,9 @@
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'show_popup') {
-            displayPopup(data.popup, container, cdnUrl, isMobile, frequency);
+            const hideAfterToUse = data.hideAfter || hideAfter;
+            const frequencyToUse = data.frequency || frequency;
+            displayPopup(data.popup, container, cdnUrl, isMobile, frequencyToUse, hideAfterToUse);
           } else if (data.type === 'heartbeat') {
             // Reset missed heartbeats on receiving a heartbeat
             missedHeartbeats = 0;
