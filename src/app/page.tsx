@@ -29,11 +29,15 @@ export const metadata: Metadata = {
 
 const jsonLd: WithContext<Product> = {
   "@context": "https://schema.org",
+  // @ts-ignore
   "@type": "WebApplication",
   "@id": "https://popuply.net#application",
   name: "Popuply",
   description: "Simple popup toasts that drive engagement and boost conversions.",
+
+  // @ts-ignore
   applicationCategory: "BusinessApplication",
+
   browserRequirements: ["requires HTML5 support", "requires JavaScript"],
   operatingSystem: "Web",
   offerCount: "3",
