@@ -1,5 +1,5 @@
 import React from "react"
-import { Bell, Zap, BarChart, Paintbrush, Lock, Layout, Webhook } from "lucide-react"
+import { Bell, Zap, BarChart, Paintbrush, Lock, Layout, Webhook, Shuffle } from "lucide-react"
 
 const FeatureCard = ({ icon: Icon, title, description }: { icon: React.ElementType; title: string; description: string }) => (
   <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -15,6 +15,11 @@ export const LearnMore = () => {
       icon: Bell,
       title: "Simple Notifications",
       description: "Create basic popup notifications to engage your website visitors effectively.",
+    },
+    {
+      icon: Shuffle,
+      title: "Flexible Ordering",
+      description: "Display popups in randomized or selective order for predictable or unpredictable experiences.",
     },
     {
       icon: Webhook,
@@ -35,12 +40,7 @@ export const LearnMore = () => {
       icon: Paintbrush,
       title: "Easy Customization",
       description: "Adjust colors, text, and basic layout to match your website's look and feel.",
-    },
-    {
-      icon: Lock,
-      title: "Privacy Friendly",
-      description: "Our popups respect user privacy and can be easily dismissed, adhering to best practices.",
-    },
+    }
   ]
 
   return (

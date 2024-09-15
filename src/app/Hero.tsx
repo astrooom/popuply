@@ -10,8 +10,8 @@ export const Hero = () => {
         <div className="flex lg:flex-row flex-col items-center justify-between gap-10">
           <section className="text-center lg:text-start space-y-8 lg:w-8/12">
             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-              Turn <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">visitors</span> into{" "}
-              <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">loyal customers</span>
+              Turn <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">casual visitors</span> into{" "}
+              <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">engaged customers</span>
             </h1>
             <p className="text-xl text-foreground md:w-11/12 mx-auto lg:mx-0">
               Deliver configurable, impactful, and <strong>attention-grabbing</strong> popup toasts that drive engagement and boost
@@ -29,8 +29,8 @@ export const Hero = () => {
             </div>
             <div className="lg:grid lg:grid-cols-3 lg:gap-4 lg:pt-8 flex flex-col gap-y-8 items-center">
               {[
-                { icon: Zap, text: "Super fast setup" },
-                { icon: TrendingUp, text: "Increased engagement" },
+                { icon: Zap, text: "Lightning-fast setup" },
+                { icon: TrendingUp, text: "Increase engagement" },
                 { icon: Webhook, text: "Hook to events in real time" },
               ].map((item, index) => (
                 <div key={index} className="flex items-center space-x-2">

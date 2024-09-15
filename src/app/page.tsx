@@ -33,7 +33,7 @@ export default function HomePage() {
           <LearnMore />
         </div>
         <div className="p-6">
-          <h2 className="text-xl md:text-2xl font-bold">Frequently Asked Questions</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-4">Frequently Asked Questions</h2>
           <HomeFaq />
         </div>
       </div>

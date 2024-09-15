@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs"
 import { PricingCardOrderButton } from "./PricingCardOrderButton"
 
 export function PricingCard() {
-  const benefits = ["Unlimited Popups", "No Coding Required", "24/7 Support", "Regular Updates"]
+  const benefits = ["Unlimited Popups", "No Coding Required"]
 
   return (
     <div className="relative bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-md">
