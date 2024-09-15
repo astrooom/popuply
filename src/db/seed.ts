@@ -40,7 +40,7 @@ async function seed() {
         target: [sites.id],
         set: {
           orderMode: "ordered",
-          startAfter: 1000,
+          startAfter: 1500,
           hideAfter: 10000,
           frequency: 4000,
           enableWebhook: true,
