@@ -100,7 +100,8 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        itim: ["var(--font-itim)"],
+        leaguespartan: ["var(--font-leaguespartan)"],
       }
     },
   },

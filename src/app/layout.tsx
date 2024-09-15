@@ -1,4 +1,4 @@
-import { Short_Stack, Itim } from "next/font/google"
+import { Itim, League_Spartan } from "next/font/google"
 import { cn } from "@/utils/cn"
 import "@/app/style.css"
 
@@ -7,15 +7,15 @@ import { Toaster } from "@/components/ui/Sonner"
 import { Footer } from "./Footer"
 import { ScriptLoader } from "./ScriptLoader"
 
-const shortStack = Short_Stack({
+const ItimFont = Itim({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-itim",
   weight: "400",
 })
 
-const ItimFont = Itim({
+const leagueSpartan = League_Spartan({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-leaguespartan",
   weight: "400",
 })
 
@@ -25,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn("min-h-screen bg-background font-sans antialiased", ItimFont.variable, shortStack.variable)}>
+    <html lang="en" suppressHydrationWarning className={cn(ItimFont.variable, leagueSpartan.variable, "font-itim")}>
+      <body className={"min-h-screen bg-background antialiased"}>
         <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange>
           {/* <AuthProvider> */}
 

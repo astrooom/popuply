@@ -14,8 +14,12 @@ export const Navbar = () => {
     <header className="sticky top-0 z-40">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="h-14 px-4 w-screen flex justify-between">
-          <NavigationMenuItem className="font-bold flex">
-            <Link rel="noreferrer noopener" href="/" className="font-bold text-xl flex items-center gap-x-2">
+          <NavigationMenuItem className="flex">
+            <Link
+              rel="noreferrer noopener"
+              href="/"
+              className="font-semibold text-xl flex items-center gap-x-2 font-leaguespartan tracking-wider"
+            >
               <Image src="/logo/logo.png" alt="logo" width={48} height={48} />
               <span>Popuply</span>
             </Link>
