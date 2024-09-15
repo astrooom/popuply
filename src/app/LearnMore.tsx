@@ -13,8 +13,8 @@ export const LearnMore = () => {
   const features = [
     {
       icon: Bell,
-      title: "Simple Notifications",
-      description: "Create basic popup notifications to engage your website visitors effectively.",
+      title: "Instant Engagement",
+      description: "Captivate visitors from the moment they land with pre-configured popups that appear instantly.",
     },
     {
       icon: Shuffle,
@@ -40,7 +40,7 @@ export const LearnMore = () => {
       icon: Paintbrush,
       title: "Easy Customization",
       description: "Adjust colors, text, and basic layout to match your website's look and feel.",
-    }
+    },
   ]
 
   return (

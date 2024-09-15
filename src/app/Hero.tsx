@@ -10,7 +10,9 @@ export const Hero = () => {
         <div className="flex lg:flex-row flex-col items-center justify-between gap-10">
           <section className="text-center lg:text-start space-y-8 lg:w-8/12">
             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-              Turn <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">casual visitors</span> into{" "}
+              Turn{" "}
+              <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">casual visitors</span>{" "}
+              into{" "}
               <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] text-transparent bg-clip-text">engaged customers</span>
             </h1>
             <p className="text-xl text-foreground md:w-11/12 mx-auto lg:mx-0">

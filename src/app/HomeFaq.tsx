@@ -8,15 +8,35 @@ export function HomeFaq() {
       question: "Is it compatible with my platform?",
       answer: (
         <>
-          Popuply works anywhere you can insert a code snippet! Here&apos;s a list of popular platforms where you can easily integrate Popuply:
+          Popuply works anywhere you can insert a code snippet! Here&apos;s a list of popular platforms where you can easily integrate
+          Popuply:
           <div className="grid grid-cols-2 md:grid-cols-6 gap-2 mt-3">
             {[
-              "WordPress", "Shopify", "Wix", "Squarespace", "Webflow",
-              "Ghost", "Bubble", "Framer", "Weebly", "BigCommerce",
-              "Magento", "Drupal", "Joomla", "PrestaShop", "OpenCart",
-              "Salesforce Commerce Cloud", "WHMCS", "WooCommerce", "Custom HTML/CSS/JS sites", "Any JS framework"
+              "WordPress",
+              "Shopify",
+              "Wix",
+              "Squarespace",
+              "Webflow",
+              "Ghost",
+              "Bubble",
+              "Framer",
+              "Weebly",
+              "BigCommerce",
+              "Magento",
+              "Drupal",
+              "Joomla",
+              "PrestaShop",
+              "OpenCart",
+              "Salesforce Commerce Cloud",
+              "WHMCS",
+              "WooCommerce",
+              "Custom HTML/CSS/JS sites",
+              "Any JS framework",
             ].map((platform, index) => (
-              <div key={index} className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-3 py-1 rounded-full text-sm font-medium">
+              <div
+                key={index}
+                className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-3 py-1 rounded-full text-sm font-medium"
+              >
                 {platform}
               </div>
             ))}
@@ -47,20 +67,24 @@ export function HomeFaq() {
       question: "Can I trigger popups based on events?",
       answer: (
         <>
-          Absolutely! Our webhook feature allows you to easily trigger real-time popups based on various events. Some cool use-cases include:
+          Absolutely! Our webhook feature allows you to easily trigger real-time popups based on various events. Some cool use-cases
+          include:
           <ul className="list-disc pl-5 mt-2 space-y-1">
             <li>New orders or sign-ups</li>
             <li>Product updates (new items, stock changes)</li>
             <li>Fresh content (blog posts, reviews)</li>
           </ul>
-          <p className="mt-2"><strong>How it works:</strong> We use websockets for instant, real-time popup delivery!</p>
+          <p className="mt-2">
+            <strong>How it works:</strong> We use websockets for instant, real-time popup delivery!
+          </p>
         </>
       ),
     },
     {
       icon: Smartphone,
       question: "Does it work on mobile devices?",
-      answer: "You bet! Popuply is fully responsive. On mobile, we show one popup at a time to ensure a great user experience without cluttering the screen.",
+      answer:
+        "You bet! Popuply is fully responsive. On mobile, we show one popup at a time to ensure a great user experience without cluttering the screen.",
     },
   ]
 
