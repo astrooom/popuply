@@ -5,6 +5,7 @@ import { LearnMore } from "./LearnMore"
 import type { Metadata } from "next"
 import { WithContext, Product, Offer } from "schema-dts"
 import { PRODUCTS } from "@/lib/constants/checkout"
+import { GettingStarted } from "./GettingStarted"
 
 export const metadata: Metadata = {
   title: "Popuply | Simple Popup Toasts for Better Engagement",
@@ -70,6 +71,10 @@ export default function HomePage() {
                 className="w-[250px] h-[54px]"
               />
             </a>
+          </div>
+
+          <div className="p-8">
+            <GettingStarted />
           </div>
 
           <LearnMore />

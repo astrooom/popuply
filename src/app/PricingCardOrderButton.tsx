@@ -53,7 +53,10 @@ export function PricingCardOrderButton({ plan }: { plan: (typeof PRODUCTS)[numbe
 
   return (
     <Button
-      className={cn("w-full bg-fuchsia-600 text-white py-3 px-4 rounded-lg hover:bg-fuchsia-700 transition duration-300")}
+      className={cn(
+        "w-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-gradient-to-r hover:from-green-500 hover:to-blue-600 transition duration-300",
+        plan.pricingId === "free" && "bg-gray-300 text-gray-800",
+      )}
       onClick={handleCheckout}
     >
       Order
