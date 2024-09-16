@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn(ItimFont.variable, leagueSpartan.variable, "font-itim")}>
+    <html lang="en" suppressHydrationWarning className={cn(ItimFont.variable, leagueSpartan.variable, "font-leaguespartan")}>
       <body className={"min-h-screen bg-background antialiased"}>
         <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange>
           {/* <AuthProvider> */}

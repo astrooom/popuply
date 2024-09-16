@@ -25,7 +25,7 @@ export const Hero = () => {
               </Suspense> */}
               <HeroPopupButton />
 
-              <Link href="#learnMore" className={buttonVariants({ variant: "positive" })}>
+              <Link href="#learnMore" className={buttonVariants({ variant: "ghost" })}>
                 Learn More <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </div>

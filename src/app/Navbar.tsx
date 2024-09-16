@@ -59,10 +59,10 @@ export const Navbar = () => {
           </span>
           {/* desktop */}
           <div className="hidden md:flex gap-2">
-            <Link href="/login" className={`border ${buttonVariants({ variant: "positive" })}`}>
+            <Link href="/login" className={`border ${buttonVariants({ variant: "ghost" })}`}>
               Get Started
             </Link>
-            <Link href="/contact" className={`border ${buttonVariants({ variant: "secondary" })}`}>
+            <Link href="/contact" className={`border ${buttonVariants({ variant: "ghost" })}`}>
               Contact
             </Link>
             <ThemeToggle />

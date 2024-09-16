@@ -119,8 +119,7 @@ export function HeroPopupButton() {
     <Button
       onClick={testPopup}
       className={cn(
-        "w-full md:w-1/3",
-        isDarkMode ? "bg-fuchsia-900 hover:bg-fuchsia-800 text-white" : "bg-fuchsia-600 hover:bg-fuchsia-800",
+        "w-full md:w-1/3 bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-gradient-to-r hover:from-green-500 hover:to-blue-600 transition duration-300",
       )}
     >
       Pop-up! 🔔
