@@ -76,6 +76,7 @@ const StepItem = ({ step, index }: { step: Step; index: number }) => {
               <video
                 ref={videoRef}
                 src={step.videoSrc}
+                preload="none"
                 autoPlay
                 loop
                 muted

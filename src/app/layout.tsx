@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/ThemeProvider"
 import { Toaster } from "@/components/ui/Sonner"
 import { Footer } from "./Footer"
 import { ScriptLoader } from "./ScriptLoader"
+import { Suspense } from "react"
 
 const ItimFont = Itim({
   subsets: ["latin"],
@@ -42,7 +43,9 @@ export default function RootLayout({
           {/* </AuthProvider> */}
         </ThemeProvider>
 
-        <ScriptLoader />
+        <Suspense>
+          <ScriptLoader />
+        </Suspense>
       </body>
     </html>
   )
