@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
-import { ArrowRight, Maximize, Minimize } from "lucide-react"
+import { Maximize, Minimize } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/Accordion"
 import { cn } from "@/utils/cn"
 
