@@ -74,11 +74,11 @@ export default function HomePage() {
             </a>
           </div>
 
-          <div className="p-8">
+          {/* <div className="p-8">
             <Suspense>
               <GettingStarted />
             </Suspense>
-          </div>
+          </div> */}
 
           <LearnMore />
         </div>
