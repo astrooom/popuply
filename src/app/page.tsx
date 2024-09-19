@@ -10,12 +10,12 @@ import { Suspense } from "react"
 
 export const metadata: Metadata = {
   title: {
-    default: "Popuply | Simple Popup Toasts for Better Engagement",
+    default: "Popuply | Simple Popup Toasts for WordPress, Shopify, and More",
     template: "%s | Popuply",
   },
   description:
-    "Boost conversions with Popuply's easy-to-use popup toasts. No coding needed. Increase visitor engagement and drive results on your website.",
-  keywords: ["popup toasts", "website engagement", "conversion boost", "no-code popups", "visitor engagement"],
+    "Boost conversions on WordPress, Shopify, and other e-commerce platforms with Popuply's easy-to-use popup toasts. No coding needed.",
+  keywords: ["popup toasts", "WordPress", "Shopify", "e-commerce", "conversion boost", "no-code popups"],
   authors: [{ name: "Buddleja Corporation" }],
   creator: "Popuply",
   publisher: "Popuply",
@@ -29,22 +29,22 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://popuply.net",
     siteName: "Popuply",
-    title: "Popuply - Engage Visitors with Simple Popup Toasts",
-    description: "Increase conversions and engagement with easy-to-implement popup toasts. No coding required.",
+    title: "Popuply - Engage Visitors on WordPress, Shopify, and More",
+    description: "Increase conversions and engagement with easy-to-implement popup toasts for popular e-commerce platforms.",
     images: [
       {
-        url: "https://popuply.net/images/popups-light.png",
+        url: "https://popuply.net/images/popups-ecommerce.png",
         width: 1200,
         height: 630,
-        alt: "Popuply - Simple Popup Toasts",
+        alt: "Popuply - Simple Popup Toasts for E-commerce",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Popuply - Simple Popup Toasts for Better Engagement",
-    description: "Boost conversions with easy-to-use popup toasts. No coding needed.",
-    images: ["https://popuply.net/images/popups-light.png"],
+    title: "Popuply - Simple Popup Toasts for WordPress, Shopify, and More",
+    description: "Boost conversions on popular e-commerce platforms with easy-to-use popup toasts.",
+    images: ["https://popuply.net/images/popups-ecommerce.png"],
   },
   other: {
     "application-name": "Popuply",
@@ -62,21 +62,24 @@ const jsonLd: WithContext<SoftwareApplication> = {
     name: product.name,
     price: product.price.toString(),
     priceCurrency: "USD",
-    description: `Popup toasts configurable on ${product.sites} site${product.sites > 1 ? "s" : ""}`,
+    description: "Popup toasts for popular e-commerce platforms like WordPress, Shopify, and more.",
   })),
-  description: "Simple popup toasts that drive engagement and boost conversions.",
+  description: "Simple popup toasts that drive engagement and boost conversions on WordPress, Shopify, and other e-commerce platforms.",
   featureList: [
     "Easy-to-use popup toasts",
+    "WordPress integration",
+    "Shopify integration",
+    "WooCommerce support",
     "No coding required",
     "Increase visitor engagement",
-    "Boost website conversions",
+    "Boost e-commerce conversions",
     "Multiple pricing tiers",
   ],
   url: "https://popuply.net",
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "4.7",
-    ratingCount: "120",
+    ratingValue: "4.8",
+    ratingCount: "150",
   },
 }
 
